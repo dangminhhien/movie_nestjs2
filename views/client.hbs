@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+  <title>Đặt vé xem phim</title>
+  <link rel="stylesheet" href="css/client.css">
+<body>
+  {{> header}}
+
+<div class="mt-4">
+  <div class="row">
+    {{#each courses}}
+      <div class="col-sm-6 col-lg-4">
+        <div class="card-img-top">
+          <a href="/movie/{{this._id}}">
+            <img src="{{this.image}}" class="card-img-top" alt="Card image cap">
+          </a>
+          <div class="card-body">
+            <a href="/movie/{{this._id}}">
+              <h5 class="card-title">{{this.name}}</h5>
+            </a>
+            <p class="card-text">{{this.category}}</p>
+          </div>
+            <div class="card-body">
+              <a href="/movie/{{this._id}}" class="card-link">Chi tiet</a>
+              <a href="/local" class="card-link">Dat ve</a>
+              {{!-- <button type="submit" class="card-link">Dat ve</button> --}}
+            </div>
+          </div>
+        </div>
+    {{/each}}
+    </div>
+  </div>
+</body>
+</head>
+</html>
