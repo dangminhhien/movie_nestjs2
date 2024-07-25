@@ -9,6 +9,10 @@ import { MovieDto } from '../DTO/movie.dto';
 export class MovieService {
     constructor(@InjectModel(Movie.name) private movieModel: Model<MovieDocument>) {}
 
+    async findAll(): Promise<Movie[]> {
+        return this.movieModel.find().exec();
+      }
+      
     async findOneById(id: string): Promise<MovieDto>  {
         const movie = await this.movieModel.findById(id).exec();
         if (!movie) {
@@ -16,7 +20,4 @@ export class MovieService {
         }
         return movie;
     }
-    async findAll(): Promise<Movie[]> {
-        return this.movieModel.find().exec();
-      }
 }

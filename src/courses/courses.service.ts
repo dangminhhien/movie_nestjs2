@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Course, CourseDocument } from '../schema/courses.schema';
@@ -10,4 +10,5 @@ export class CoursesService {
     async findAll(): Promise<Course[]> {
         return this.courseModel.find().exec();
     }
+
 }

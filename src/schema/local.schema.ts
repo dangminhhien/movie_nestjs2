@@ -17,6 +17,7 @@ export class Local {
   @Prop({ required: true })
   map: string;
 
+  
 }
 
 export const LocalSchema = SchemaFactory.createForClass(Local);

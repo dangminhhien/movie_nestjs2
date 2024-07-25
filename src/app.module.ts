@@ -8,9 +8,7 @@ import { CoursesController } from './courses/courses.controller';
 import { MovieModule } from './movie/movie.module';
 import { LocalModule } from './local/local.module';
 import { ScheduleModule } from './schedule/schedule.module';
-import { Ticket } from './schema/ticket.schema';
 import { TicketModule } from './ticket/ticket.module';
-
 @Module({
   imports: [
     MongooseModule.forRoot('mongodb://localhost/movie'),
@@ -19,6 +17,7 @@ import { TicketModule } from './ticket/ticket.module';
     MovieModule,
     LocalModule,
     ScheduleModule,
+    TicketModule,
 
   ],
   controllers: [AppController, CoursesController],

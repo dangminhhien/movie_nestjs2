@@ -13,9 +13,6 @@ export class Ticket {
 
   @Prop({ required: true })
   movieName: string;
-
-  @Prop({ required: true })
-  bookedAt: Date;
 }
 
 export const TicketSchema = SchemaFactory.createForClass(Ticket);
