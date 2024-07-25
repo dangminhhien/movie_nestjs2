@@ -18,7 +18,6 @@ async function bootstrap() {
       saveUninitialized: false,
     }),
   );
-
   app.useStaticAssets(join(__dirname, '..', 'public'));
   hbs.registerPartials(join(__dirname, '..', 'views', 'partials'));
 

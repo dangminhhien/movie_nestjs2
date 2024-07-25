@@ -5,13 +5,6 @@ import { CoursesService } from './courses.service'; // Import service của bạ
 export class CoursesController {
     constructor(private readonly courseService: CoursesService) {}
 
-    // @Get()
-    // @Render('client')
-    // async showCoursesForm() {
-    //     const courses = await this.courseService.findAll();
-    //     return { courses };
-    // }
-
     @Get()
     @Render('client')
     async showCoursesForm(@Req() req: Request) {
