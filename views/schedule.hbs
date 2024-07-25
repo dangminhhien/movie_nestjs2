@@ -24,7 +24,9 @@
     <form action="/schedule" method="post">
         <h2>Chọn lịch xem phim</h2>
         <br>
-
+        <input type="hidden" name="movieId" value="{{movieId}}">
+        <input type="hidden" name="localId" value="{{localId}}">
+        
         <p>Chọn ngày xem phim (yyyy-MM-dd)</p>
         <input type="date" id="selectedDate" class="form-control form-control-lg" name="selectedDate" required>
         <br>
