@@ -20,8 +20,8 @@ export class ScheduleController {
   ) {
     const username = (req as any).session?.username;
     const movieName = (req as any).session?.name || 'Unknown Movie';
-    const localName = (req as any).session?.namelocal|| 'Unknown Location';
-    return { movieId, localId, username, movieName,  localName};
+    const localName = (req as any).session?.name|| 'Unknown Location';
+    return { movieId, localId, username,  localName, movieName};
   }
   
 

@@ -40,7 +40,6 @@ export class LocalController {
     const local = await this.localService.findAll();
     const username = (req as any).session?.username;
     const movieName = (req as any).session?.name || 'Unknown Movie';
-    const localName = (req as any).session?.namelocal;
-    return { local, username, movieName, movieId, localName };
+    return { local, username, movieName, movieId };
   }
 }

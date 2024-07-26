@@ -4,14 +4,14 @@ import { Document } from 'mongoose';
 export type LocalDocument = Local & Document;
 @Schema({collection: 'local'})
 export class Local {
-  @Prop({ required: true })
-  namelocal: string;
+  @Prop ({required: true})
+  name: string;
 
   @Prop({ required: true })
   local: string;
 
   @Prop({ required: true })
-  imagelo: string;
+  image: string;
 
   @Prop({ required: true })
   map: string;
