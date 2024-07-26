@@ -7,7 +7,14 @@ export class MovieController {
 
     @Get(':id')
     @Render('movie')
-    async getMovieDetail(@Param('id') id: string, @Req() req: Request, @Res() res: Response ) {
+    async getMovieDetail(
+        @Param('id') id: string, 
+        @Req() req: Request, 
+        @Res() res: Response 
+    ) {
+        if (!id || id.trim() === '') {
+            throw new NotFoundException('Movie ID is required');
+          }
         try {
             const movie = await this.movieService.findOneById(id);
             const username = (req as any).session?.username;

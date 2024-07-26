@@ -8,5 +8,6 @@ import { Local, LocalSchema } from '../schema/local.schema';
   imports: [MongooseModule.forFeature([{ name: Local.name, schema: LocalSchema }])],
   controllers: [LocalController],
   providers: [LocalService],
+  exports: [LocalService], 
 })
 export class LocalModule {}

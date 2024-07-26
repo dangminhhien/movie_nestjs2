@@ -2,11 +2,10 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
 export type LocalDocument = Local & Document;
-
 @Schema({collection: 'local'})
 export class Local {
   @Prop({ required: true })
-  namelo: string;
+  namelocal: string;
 
   @Prop({ required: true })
   local: string;

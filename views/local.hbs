@@ -25,12 +25,12 @@
             </a>
             <div class="card-body">
               <a href="{{this.map}}">
-                <h5 class="card-title">{{this.namelo}}</h5>
+                <h5 class="card-title">{{this.name}}</h5>
               </a>
               <p class="card-text">{{this.local}}</p>
             </div>
             <div class="card-body">
-              <a href="/movie/{{movie._id}}/local/{{this._id}}/schedule" class="card-link">Chon</a>
+              <a href="/schedule?movieId={{movieId}}&localId={{this.localId}}" class="card-link">Chọn</a>
             </div>
           </div>
         </div>
