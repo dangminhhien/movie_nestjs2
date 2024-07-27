@@ -32,6 +32,7 @@ export class ScheduleService {
     return updatedSchedule;
   }
 
+  
   async remove(id: string): Promise<void> {
     const result = await this.scheduleModel.findByIdAndDelete(id).exec();
     if (!result) {
