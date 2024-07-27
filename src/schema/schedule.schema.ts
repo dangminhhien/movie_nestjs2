@@ -3,19 +3,19 @@ import { Document } from 'mongoose';
 
 export type ScheduleDocument = Schedule & Document;
 
-@Schema({ collection: 'schedules' })
+@Schema()
 export class Schedule {
   @Prop({ required: true })
-  movieName: string;
+  movieId: string;
 
   @Prop({ required: true })
-  localName: string;
+  localId: string;
 
   @Prop({ required: true })
-  selectedDate: string; // Consider using Date type if you need date-specific operations
+  selectedDate: Date;
 
   @Prop({ required: true })
-  selectedTime: string; // Consider using Time type if applicable, otherwise, keep as string
+  selectedTime: string;
 }
 
 export const ScheduleSchema = SchemaFactory.createForClass(Schedule);

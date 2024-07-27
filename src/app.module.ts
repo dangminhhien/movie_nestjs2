@@ -10,6 +10,7 @@ import { LocalModule } from './local/local.module';
 import { ScheduleController } from './schedule/schedule.controller';
 import { ScheduleService } from './schedule/schedule.service';
 import { ScheduleModule } from './schedule/schedule.module';
+import { TicketModule } from './ticket/ticket.module';
 @Module({
   imports: [
     MongooseModule.forRoot('mongodb://localhost/movie'),
@@ -18,6 +19,7 @@ import { ScheduleModule } from './schedule/schedule.module';
     MovieModule,
     LocalModule,
     ScheduleModule,
+    TicketModule,
 
   ],
   controllers: [AppController, CoursesController],

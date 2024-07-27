@@ -1,32 +1,40 @@
-import { Controller, Post, Body, Get, Param, Patch, Delete } from '@nestjs/common';
+import { Controller, Get, Query, Req, Render, NotFoundException } from '@nestjs/common';
 import { ScheduleService } from './schedule.service';
+import { MovieService } from '../movie/movie.service';
+import { Request } from 'express';
 
-@Controller('schedules')
+@Controller('schedule')
 export class ScheduleController {
-  constructor(private readonly scheduleService: ScheduleService) {}
-
-  @Post()
-  async create(@Body() createScheduleDto: any) {
-    return this.scheduleService.create(createScheduleDto);
-  }
+  constructor(
+    private readonly scheduleService: ScheduleService,
+    private readonly movieService: MovieService,
+  ) {}
 
   @Get()
-  async findAll() {
-    return this.scheduleService.findAll();
-  }
+  @Render('schedule')
+  async showSchedule(
+    @Query('movieId') movieId: string,
+    @Query('movieName') movieName: string,
+    @Query('localId') localId: string,
+    @Query('localName') localName: string,
+    @Req() req: Request
+  ) {
+    try {
+      console.log('Received movieId:', movieId);
+      console.log('Received movieName:', movieName);
+      console.log('Received localId:', localId);
+      console.log('Received localName:', localName);
+      
+      // if (!movieId || !movieName || !localId || !localName) {
+      //   throw new NotFoundException('Thiếu thông tin cần thiết');
+      // }
 
-  @Get(':id')
-  async findOne(@Param('id') id: string) {
-    return this.scheduleService.findOne(id);
-  }
+      // const movie = await this.movieService.findById(movieId);
+      const username = (req as any).session?.username || 'Guest';
 
-  @Patch(':id')
-  async update(@Param('id') id: string, @Body() updateScheduleDto: any) {
-    return this.scheduleService.update(id, updateScheduleDto);
-  }
-
-  @Delete(':id')
-  async remove(@Param('id') id: string) {
-    return this.scheduleService.remove(id);
+      return { movieId, movieName, localId, localName, username };
+    } catch (error) {
+      throw new NotFoundException(error.message);
+    }
   }
 }

@@ -7,11 +7,12 @@ import { Schedule, ScheduleDocument } from '../schema/schedule.schema';
 export class ScheduleService {
   constructor(@InjectModel(Schedule.name) private scheduleModel: Model<ScheduleDocument>) {}
 
-  async create(createScheduleDto: any): Promise<Schedule> {
-    const createdSchedule = new this.scheduleModel(createScheduleDto);
-    return createdSchedule.save();
+  async create(schedule: Partial<Schedule>): Promise<Schedule> {
+    const newSchedule = new this.scheduleModel(schedule);
+    return newSchedule.save();
   }
 
+  
   async findAll(): Promise<Schedule[]> {
     return this.scheduleModel.find().exec();
   }

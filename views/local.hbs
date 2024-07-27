@@ -20,6 +20,14 @@
       {{#each local}}
         <div class="col-sm-6 col-lg-4">
           <div class="card-img-top">
+            <form action="/schedule" method="get">
+            <input type="hidden" name="movieId" value="{{movieId}}">
+            <input type="hidden" name="movieName" value="{{movieName}}">
+            <input type="hidden" name="localId" value="{{this._id}}">
+            <input type="hidden" name="localName" value="{{this.name}}">
+            <button type="submit" class="btn btn-primary">Chọn</button>
+            </form>
+
             <a href="{{this.map}}">
               <img src="{{this.image}}" class="card-img-top" alt="Card image cap">
             </a>
@@ -30,7 +38,14 @@
               <p class="card-text">{{this.local}}</p>
             </div>
             <div class="card-body">
-              <a href="/schedule?movieId={{movieId}}&localId={{this._id}}" class="btn btn-primary">Chọn</a>
+              {{!-- <a href="/schedule?localId={{this._id}}" class="btn btn-primary">Chọn</a> --}}
+              <form action="/schedule?localId={{this._id}}" method="get">
+            <input type="hidden" name="movieId" value="{{movie._id}}">
+            <input type="hidden" name="movieName" value="{{movie.name}}">
+            <input type="hidden" name="localId" value="{{this._id}}">
+            <input type="hidden" name="localName" value="{{this.name}}">
+            <button type="submit" class="btn btn-primary">Chọn</button>
+            </form>
             </div>
           </div>
         </div>
