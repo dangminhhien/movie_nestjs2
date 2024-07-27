@@ -1,23 +1,21 @@
-import { Schema, Document } from 'mongoose';
-import { Prop, Schema as MongooseSchema, SchemaFactory } from '@nestjs/mongoose';
-import { Movie } from '../schema/movie.schema';  // Adjust the path as needed
-import { Local } from '../schema/local.schema';  // Adjust the path as needed
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
 
 export type ScheduleDocument = Schedule & Document;
 
-@MongooseSchema()
+@Schema({ collection: 'schedules' })
 export class Schedule {
-  @Prop({ type: Schema.Types.ObjectId, ref: 'Movie', required: true })
-  movie: Movie;
+  @Prop({ required: true })
+  movieName: string;
 
-  @Prop({ type: Schema.Types.ObjectId, ref: 'Local', required: true })
-  local: Local;
+  @Prop({ required: true })
+  localName: string;
 
-  @Prop({ type: Date, required: true })
-  date: Date;
+  @Prop({ required: true })
+  selectedDate: string; // Consider using Date type if you need date-specific operations
 
-  @Prop({ type: String, required: true })
-  time: string;  // Example: "14:00" for 2 PM
+  @Prop({ required: true })
+  selectedTime: string; // Consider using Time type if applicable, otherwise, keep as string
 }
 
 export const ScheduleSchema = SchemaFactory.createForClass(Schedule);

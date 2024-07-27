@@ -17,10 +17,10 @@ import { ScheduleModule } from './schedule/schedule.module';
     CoursesModule,
     MovieModule,
     LocalModule,
-    // ScheduleModule,
+    ScheduleModule,
 
   ],
-  controllers: [AppController, CoursesController, ScheduleController],
-  providers: [AppService, ScheduleService],
+  controllers: [AppController, CoursesController],
+  providers: [AppService],
 })
 export class AppModule {}

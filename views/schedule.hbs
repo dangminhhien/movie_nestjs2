@@ -14,40 +14,33 @@
 </head>
 
 <body>
-<!-- nav bar -->
-{{!-- Include navbar partial if needed --}}
-{{> header }}
-<!-- end of navbar -->
+    <!-- Nav bar -->
+    {{> header }}
+    <!-- End of navbar -->
 
-    <div class="col-sm-12">
+    <div class="container mt-5">
         <h2>Phim đã chọn: {{movieName}}</h2>
-        <h2>Dia chi đã chọn: {{local.name}}</h2>
-    </div>
-
-    <br><br><br>
-    <div class="container">
+        <h3>Địa chỉ đã chọn: {{localName}}</h3>
+        
         <form action="/schedule" method="post">
-            <h2>Chọn lịch xem phim</h2>
-            <br>
-            {{!-- <input type="hidden" name="movieName" value="{{movieName}}">
-            <input type="hidden" name="localName" value="{{localName}}"> --}}
-            
-            
-            " value="{{localName}}">
-            
-            <p>Chọn ngày xem phim (yyyy-MM-dd)</p>
-            <input type="date" id="selectedDate" class="form-control form-control-lg" name="selectedDate" required>
-            <br>
+            <input type="hidden" name="movieName" value="{{movieName}}">
+            <input type="hidden" name="localName" value="{{localName}}">
 
-            <p>Chọn giờ xem phim (HH:mm)</p>
-            <input type="time" id="selectedTime" class="form-control form-control-lg" name="selectedTime" required>
-            <br><br>
+            <div class="form-group">
+                <label for="selectedDate">Chọn ngày xem phim (yyyy-MM-dd)</label>
+                <input type="date" id="selectedDate" class="form-control form-control-lg" name="selectedDate" required>
+            </div>
 
-            <input type="submit" class="btn btn-outline-danger btn-block" value="Đặt lịch">
+            <div class="form-group">
+                <label for="selectedTime">Chọn giờ xem phim (HH:mm)</label>
+                <input type="time" id="selectedTime" class="form-control form-control-lg" name="selectedTime" required>
+            </div>
+
+            <button type="submit" class="btn btn-outline-danger btn-block">Đặt lịch</button>
         </form>
     </div>
-    <br><br><br><br><br><br><br>
-    {{!-- Include footer partial if needed --}}
+
+    <!-- Footer -->
     {{> footer }}
 
 </body>

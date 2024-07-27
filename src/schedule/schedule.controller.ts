@@ -1,28 +1,32 @@
-import { Controller, Get, Query, Render, Req } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param, Patch, Delete } from '@nestjs/common';
 import { ScheduleService } from './schedule.service';
-import { MovieService } from '../movie/movie.service';  // Adjust path as needed
-import { LocalService } from '../local/local.service';  // Adjust path as needed
 
-@Controller('schedule')
+@Controller('schedules')
 export class ScheduleController {
-  constructor(
-    private readonly scheduleService: ScheduleService,
-    private readonly movieService: MovieService,  // Ensure MovieService is provided
-    private readonly localService: LocalService,  // Ensure LocalService is provided
-  ) {}
+  constructor(private readonly scheduleService: ScheduleService) {}
+
+  @Post()
+  async create(@Body() createScheduleDto: any) {
+    return this.scheduleService.create(createScheduleDto);
+  }
 
   @Get()
-  @Render('schedule')
-  async showScheduleForm(
-    @Query('movieId') movieId: string, 
-    @Query('localId') localId: string,  
-    @Req() req: Request,
-  ) {
-    const username = (req as any).session?.username;
-    const movieName = (req as any).session?.name || 'Unknown Movie';
-    const localName = (req as any).session?.name|| 'Unknown Location';
-    return { movieId, localId, username,  localName, movieName};
+  async findAll() {
+    return this.scheduleService.findAll();
   }
-  
 
+  @Get(':id')
+  async findOne(@Param('id') id: string) {
+    return this.scheduleService.findOne(id);
+  }
+
+  @Patch(':id')
+  async update(@Param('id') id: string, @Body() updateScheduleDto: any) {
+    return this.scheduleService.update(id, updateScheduleDto);
+  }
+
+  @Delete(':id')
+  async remove(@Param('id') id: string) {
+    return this.scheduleService.remove(id);
+  }
 }
