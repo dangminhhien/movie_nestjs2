@@ -2,12 +2,15 @@ import { Controller, Get, Query, Req, Render, NotFoundException } from '@nestjs/
 import { ScheduleService } from './schedule.service';
 import { MovieService } from '../movie/movie.service';
 import { Request } from 'express';
+import { LocalService } from 'src/local/local.service';
 
 @Controller('schedule')
 export class ScheduleController {
   constructor(
     private readonly scheduleService: ScheduleService,
     private readonly movieService: MovieService,
+    private readonly localService: LocalService
+    
   ) {}
 
   @Get()
@@ -20,6 +23,16 @@ export class ScheduleController {
     @Req() req: Request
   ) {
     try {
+      const schedule = await this.scheduleService.findAll();
+      const username = (req as any).session?.username || 'Guest';
+      const movieName = (req as any).session?.name || 'Unknown Movie';
+
+
+      // const movie = await this.movieService.findById(movieId);
+      // if (!movie) throw new NotFoundException('Movie not found');
+      // const movieName = movie.name;
+      
+
       console.log('Received movieId:', movieId);
       console.log('Received movieName:', movieName);
       console.log('Received localId:', localId);
@@ -29,10 +42,8 @@ export class ScheduleController {
       //   throw new NotFoundException('Thiếu thông tin cần thiết');
       // }
 
-      // const movie = await this.movieService.findById(movieId);
-      const username = (req as any).session?.username || 'Guest';
 
-      return { movieId, movieName, localId, localName, username };
+      return {  schedule: schedule, movieId, movieName, localId, localName, username };
     } catch (error) {
       throw new NotFoundException(error.message);
     }
