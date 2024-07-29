@@ -5,7 +5,7 @@ export type LocalDocument = Local & Document;
 @Schema({collection: 'local'})
 export class Local {
   @Prop ({required: true})
-  name: string;
+  localName: string;
 
   @Prop({ required: true })
   local: string;

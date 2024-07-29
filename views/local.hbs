@@ -25,7 +25,7 @@
             </a>
             <div class="card-body">
               <a href="{{this.map}}">
-                <h5 class="card-title">{{this.name}}</h5>
+                <h5 class="card-title">{{this.localName}}</h5>
               </a>
               <p class="card-text">{{this.local}}</p>
             </div>
@@ -35,7 +35,7 @@
             <input type="hidden" name="movieId" value="{{movie._id}}">
             <input type="hidden" name="movieName" value="{{movie.name}}">
             <input type="hidden" name="localId" value="{{this._id}}">
-            <input type="hidden" name="localName" value="{{this.name}}">
+            <input type="hidden" name="localName" value="{{this.localName}}">
             <button type="submit" class="btn btn-primary">Chọn</button>
             </form>
             </div>

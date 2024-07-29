@@ -5,12 +5,14 @@ import { ScheduleService } from './schedule.service';
 import { ScheduleController } from './schedule.controller';
 import { MovieModule } from 'src/movie/movie.module';
 import { LocalModule } from 'src/local/local.module';
+import { LogModule } from 'src/log/log.module';
 
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: Schedule.name, schema: ScheduleSchema }]),
     MovieModule,
-    LocalModule, // Assuming LocalModule is imported and configured elsewhere
+    LocalModule,
+    LogModule,
   ],
   controllers: [ScheduleController],
   providers: [ScheduleService],

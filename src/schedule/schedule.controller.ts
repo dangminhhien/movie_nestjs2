@@ -3,13 +3,15 @@ import { ScheduleService } from './schedule.service';
 import { MovieService } from '../movie/movie.service';
 import { Request } from 'express';
 import { LocalService } from 'src/local/local.service';
+import { LogService } from 'src/log/log.service';
 
 @Controller('schedule')
 export class ScheduleController {
   constructor(
     private readonly scheduleService: ScheduleService,
     private readonly movieService: MovieService,
-    private readonly localService: LocalService
+    private readonly localService: LocalService,
+    private readonly logService: LogService,
     
   ) {}
 
@@ -27,14 +29,12 @@ export class ScheduleController {
       const username = (req as any).session?.username || 'Guest';
       const movieName = (req as any).session?.name || 'Unknown Movie';
 
-      // console.log('Received movieId:', movieId);
+
+      console.log('Received username:', username);
       console.log('Received movieName:', movieName);
-      // console.log('Received localId:', localId);
       console.log('Received localName:', localName);
       
-      // if (!movieId || !movieName || !localId || !localName) {
-      //   throw new NotFoundException('Thiếu thông tin cần thiết');
-      // }
+      await this.logService.createScheduleLog(username, movieName, localName);
 
 
       return {  schedule: schedule, movieId, movieName, localId, localName, username };

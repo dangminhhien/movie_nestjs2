@@ -12,6 +12,8 @@ import { ScheduleService } from './schedule/schedule.service';
 import { ScheduleModule } from './schedule/schedule.module';
 import { HistoryController } from './history/history.controller';
 // import { HistoryModule } from './history/history.module';
+import { LogService } from './log/log.service';
+import { LogModule } from './log/log.module';
 @Module({
   imports: [
     MongooseModule.forRoot('mongodb://localhost/movie'),
@@ -20,7 +22,8 @@ import { HistoryController } from './history/history.controller';
     MovieModule,
     LocalModule,
     ScheduleModule,
-    // HistoryModule,
+    LogModule,
+
 
   ],
   controllers: [AppController, CoursesController, HistoryController],
