@@ -12,13 +12,17 @@
 <body>
   {{> header}}
   <div class="container">
-   
-    <div class="container">
-    <h2>Kết quả đặt lịch xem phim</h2>
-    <p>Ngày xem phim: {{selectedDate}}</p>
-    <p>Giờ xem phim: {{selectedTime}}</p>
-    
-</div>
+    {{#if message}}
+      <div class="alert alert-warning" role="alert">
+        {{message}}
+      </div>
+    {{else}}
+      <div class="container">
+        <h2>Kết quả đặt lịch xem phim</h2>
+        <p>Ngày xem phim: {{selectedDate}}</p>
+        <p>Giờ xem phim: {{selectedTime}}</p>
+      </div>
+    {{/if}}
   </div>
 </body>
 </html>

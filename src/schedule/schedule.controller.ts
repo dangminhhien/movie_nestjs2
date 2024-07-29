@@ -25,19 +25,22 @@ export class ScheduleController {
     @Req() req: Request
   ) {
     try {
-      const schedule = await this.scheduleService.findAll();
-      const username = (req as any).session?.username || 'Guest';
+      // const schedule = await this.scheduleService.findAll();
+      const username = (req as any).session?.username;
       const movieName = (req as any).session?.name || 'Unknown Movie';
 
-
-      console.log('Received username:', username);
-      console.log('Received movieName:', movieName);
-      console.log('Received localName:', localName);
       
-      await this.logService.createScheduleLog(username, movieName, localName);
 
-
-      return {  schedule: schedule, movieId, movieName, localId, localName, username };
+        
+        
+        // console.log('Received username:', username);
+        // console.log('Received movieName:', movieName);
+        // console.log('Received localName:', localName);
+        
+        // await this.logService.createScheduleLog( username, movieName, localName);
+        
+        
+        return {   movieId, movieName, localId, localName, username };
     } catch (error) {
       throw new NotFoundException(error.message);
     }

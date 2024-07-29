@@ -1,7 +1,9 @@
-import { Controller, Get, Param, Render, NotFoundException, Req, Query, Redirect, Post, Body } from '@nestjs/common';
+import { Controller, Get, Param, Render, NotFoundException, Req, Query, Redirect, Post, Body, Res } from '@nestjs/common';
 import { LocalService } from './local.service';
 import { MovieService } from '../movie/movie.service';
 import { ScheduleService } from '../schedule/schedule.service';
+import { Response } from 'express';
+
 
 @Controller('local')
 export class LocalController {
@@ -29,16 +31,22 @@ async bookTicket(@Param('id') id: string, @Req() req: Request) {
   @Get()
   @Render('local')
   async showLocalForm(
+    @Param('id') id: string, 
     @Query('movieId') movieId: string,
+    @Res() res: Response,
     @Req() req: Request,
   ) {
     try {
       const locals = await this.localService.findAll();
-      const username = (req as any).session?.username || 'Guest';
+      const selectedLocal = locals[0];
+      // const local = await this.localService.findOneById(id);
+      const username = (req as any).session?.username ;
       const movieName = (req as any).session?.name || 'Unknown Movie';
-      console.log('Rendering local form for movie ID:', movieId);
-      console.log('Rendering local form for user:', username);
-      console.log('Rendering local form for movie:', movieName);
+      (req as any).session.localName = selectedLocal.localName;
+
+      // console.log('Rendering local form for movie ID:', movieId);
+      // console.log('Rendering local form for user:', username);
+      // console.log('Rendering local form for movie:', movieName);
       return { local: locals, username, movieId, movieName };
     } catch (error) {
       throw new NotFoundException(error.message);

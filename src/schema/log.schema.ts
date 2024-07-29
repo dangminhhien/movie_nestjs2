@@ -3,22 +3,22 @@ import { Document } from 'mongoose';
 
 export type LogDocument = Log & Document;
 
-@Schema({ collection: 'logs' })
+@Schema({ collection: 'logs' }) // Đảm bảo tên collection chính xác
 export class Log {
-  @Prop({ required: false }) // Chỉ định là không bắt buộc nếu không cần thiết
+  @Prop({ required: true })
   username: string;
 
-  @Prop({ required: false }) // Chỉ định là không bắt buộc nếu không cần thiết
-  movieName: string;
+  @Prop({ required: false })  // Không bắt buộc
+  movieName?: string;
 
-  @Prop({ required: false }) // Chỉ định là không bắt buộc nếu không cần thiết
-  localName: string;
+  @Prop({ required: false })  // Không bắt buộc
+  localName?: string;
 
-  @Prop({ required: false })
-  selectedDate: string;
+  @Prop({ required: false })  // Không bắt buộc
+  selectedDate?: string;
 
-  @Prop({ required: false })
-  selectedTime: string;
+  @Prop({ required: false })  // Không bắt buộc
+  selectedTime?: string;
 
   @Prop({ type: Date, default: Date.now })
   timestamp: Date;

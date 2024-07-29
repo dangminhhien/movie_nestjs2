@@ -47,7 +47,7 @@ export class MovieController {
     async getLocalMovies(@Req() req: Request) {
         try {
             const movies = await this.movieService.findAll();
-            const username = (req as any).session?.username || 'Guest';
+            const username = (req as any).session?.username;
             const name = (req as any).session?.name;
                 return {  movies, username, name };
             } catch (error) {

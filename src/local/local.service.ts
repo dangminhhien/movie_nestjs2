@@ -15,7 +15,7 @@ export class LocalService {
     return this.localModel.findById(id).exec();
   }
 
-  async findOneById(id: string): Promise<Local> {
+  async findOneById(id: string): Promise<LocalDto> {
     return this.localModel.findById(id).exec();
   }
 
