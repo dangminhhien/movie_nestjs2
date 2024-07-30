@@ -16,6 +16,12 @@ export class Course {
 
     @Prop()
     slug: string;
+
+    @Prop()
+    content: string; // New field for the movie content
+  
+    @Prop()
+    trailer: string; // New field for the movie trailer URL
 }
 
 export const CourseSchema = SchemaFactory.createForClass(Course);

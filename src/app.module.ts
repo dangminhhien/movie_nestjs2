@@ -14,6 +14,8 @@ import { HistoryController } from './history/history.controller';
 import { LogService } from './log/log.service';
 import { LogModule } from './log/log.module';
 import { TableController } from './table/table.controller';
+import { AdminService } from './admin/admin.service';
+import { AdminModule } from './admin/admin.module';
 
 @Module({
   imports: [
@@ -24,6 +26,7 @@ import { TableController } from './table/table.controller';
     LocalModule,
     ScheduleModule,
     LogModule,
+    AdminModule,
 
 
   ],

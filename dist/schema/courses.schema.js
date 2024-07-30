@@ -30,6 +30,14 @@ __decorate([
     (0, mongoose_1.Prop)(),
     __metadata("design:type", String)
 ], Course.prototype, "slug", void 0);
+__decorate([
+    (0, mongoose_1.Prop)(),
+    __metadata("design:type", String)
+], Course.prototype, "content", void 0);
+__decorate([
+    (0, mongoose_1.Prop)(),
+    __metadata("design:type", String)
+], Course.prototype, "trailer", void 0);
 exports.Course = Course = __decorate([
     (0, mongoose_1.Schema)({ collection: 'courses' })
 ], Course);

@@ -12,27 +12,30 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CoursesService = void 0;
+exports.AdminService = void 0;
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 const courses_schema_1 = require("../schema/courses.schema");
-let CoursesService = class CoursesService {
+let AdminService = class AdminService {
     constructor(courseModel) {
         this.courseModel = courseModel;
     }
-    async findAll() {
-        return this.courseModel.find().exec();
-    }
-    async create(createCourseDto) {
-        const newCourse = new this.courseModel(createCourseDto);
+    async createAdminMovie(name, image, category, content, trailer) {
+        const newCourse = new this.courseModel({
+            name,
+            image,
+            category,
+            content,
+            trailer,
+        });
         return newCourse.save();
     }
 };
-exports.CoursesService = CoursesService;
-exports.CoursesService = CoursesService = __decorate([
+exports.AdminService = AdminService;
+exports.AdminService = AdminService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_1.InjectModel)(courses_schema_1.Course.name)),
     __metadata("design:paramtypes", [mongoose_2.Model])
-], CoursesService);
-//# sourceMappingURL=courses.service.js.map
+], AdminService);
+//# sourceMappingURL=admin.service.js.map

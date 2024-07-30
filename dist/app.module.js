@@ -20,6 +20,7 @@ const schedule_module_1 = require("./schedule/schedule.module");
 const history_controller_1 = require("./history/history.controller");
 const log_module_1 = require("./log/log.module");
 const table_controller_1 = require("./table/table.controller");
+const admin_module_1 = require("./admin/admin.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -33,6 +34,7 @@ exports.AppModule = AppModule = __decorate([
             local_module_1.LocalModule,
             schedule_module_1.ScheduleModule,
             log_module_1.LogModule,
+            admin_module_1.AdminModule,
         ],
         controllers: [app_controller_1.AppController, courses_controller_1.CoursesController, history_controller_1.HistoryController, table_controller_1.TableController],
         providers: [app_service_1.AppService],
