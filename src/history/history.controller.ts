@@ -45,9 +45,9 @@ export class HistoryController {
       if (isConflict) {
         return { message: 'The selected time conflicts with an existing schedule. Please choose another time.' };
       }
-      await this.logService.createScheduleLog(username, selectedDate, selectedTime, movieName, localName);
+      await this.logService.createScheduleLog(username, userId,selectedDate, selectedTime, movieName, localName);
       
-      return {userId, username, selectedDate, selectedTime, movieName, localName, movieId, localId};
+      return { username, userId, selectedDate, selectedTime, movieName, localName, movieId, localId};
     }
   }
 }

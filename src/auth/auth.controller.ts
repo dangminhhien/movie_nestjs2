@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Request, UseGuards, Body, Res, Render, HttpStatus } from '@nestjs/common';
+import { Controller, Post, Get, Request, UseGuards, Body, Res, Render, HttpStatus, Param, Query } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './local-auth.guard';
 import { Response } from 'express';
@@ -15,7 +15,11 @@ export class AuthController {
 
   @Get('signin')
   @Render('signin')
-  showSigninForm() {
+  async showSigninForm(
+    @Query('id') id: string,
+  ) {
+    const userId = await this.authService.findById(id);
+    // console.log("userId: " + userId);
     return {};
   }
 
@@ -24,6 +28,8 @@ export class AuthController {
   async signin(@Request() req, @Res() res: Response) {
     const token = await this.authService.login(req.user);
     req.session.username = req.user.username;
+    req.session.userId = req.user._id;
+    // console.log('userId: ', req.user._id);
     res.cookie('jwt', token.access_token, { httpOnly: true });
     res.redirect('/');
   }
@@ -34,7 +40,7 @@ export class AuthController {
   async signup(@Body() createUserDto: any, @Res() res: Response) {
     try {
       const user = await this.authService.signup(createUserDto);
-      return res.status(HttpStatus.CREATED).json(user);
+      return res.status(HttpStatus.CREATED).render('signup', { message: 'Sign up successful!' });
     } catch (error) {
       return res.status(HttpStatus.BAD_REQUEST).json({ message: error.message });
     }

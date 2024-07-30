@@ -2,6 +2,7 @@ import { Document } from 'mongoose';
 export type LogDocument = Log & Document;
 export declare class Log {
     username: string;
+    userId: string;
     movieName?: string;
     localName?: string;
     selectedDate?: string;

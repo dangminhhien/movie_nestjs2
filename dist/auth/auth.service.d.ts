@@ -10,4 +10,5 @@ export declare class AuthService {
         access_token: string;
     }>;
     signup(createUserDto: any): Promise<User>;
+    findById(id: string): Promise<User | null>;
 }

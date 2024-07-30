@@ -44,6 +44,9 @@ let AuthService = class AuthService {
         const createdUser = new this.userModel({ username, password: hashedPassword });
         return createdUser.save();
     }
+    async findById(id) {
+        return this.userModel.findById(id).exec();
+    }
 };
 exports.AuthService = AuthService;
 exports.AuthService = AuthService = __decorate([

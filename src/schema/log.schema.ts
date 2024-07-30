@@ -8,6 +8,9 @@ export class Log {
   @Prop({ required: true })
   username: string;
 
+  @Prop({ required: true })
+  userId: string;
+
   @Prop({ required: false })  // Không bắt buộc
   movieName?: string;
 

@@ -21,19 +21,23 @@ let LogService = class LogService {
     constructor(logModel) {
         this.logModel = logModel;
     }
-    async createScheduleLog(username, selectedDate, selectedTime, movieName, localName) {
+    async createScheduleLog(username, userId, selectedDate, selectedTime, movieName, localName) {
         const log = new this.logModel({
             username,
             movieName,
             localName,
             selectedDate,
             selectedTime,
+            userId,
             timestamp: new Date(),
         });
         return log.save();
     }
     async findAll() {
         return this.logModel.find().exec();
+    }
+    async findAllByUserId(userId) {
+        return this.logModel.find({ userId }).exec();
     }
     async isTimeConflict(dateTime) {
         const logs = await this.findAll();

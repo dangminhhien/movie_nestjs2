@@ -23,19 +23,21 @@ let AuthController = class AuthController {
     showSignupForm() {
         return {};
     }
-    showSigninForm() {
+    async showSigninForm(id) {
+        const userId = await this.authService.findById(id);
         return {};
     }
     async signin(req, res) {
         const token = await this.authService.login(req.user);
         req.session.username = req.user.username;
+        req.session.userId = req.user._id;
         res.cookie('jwt', token.access_token, { httpOnly: true });
         res.redirect('/');
     }
     async signup(createUserDto, res) {
         try {
             const user = await this.authService.signup(createUserDto);
-            return res.status(common_1.HttpStatus.CREATED).json(user);
+            return res.status(common_1.HttpStatus.CREATED).render('signup', { message: 'Sign up successful!' });
         }
         catch (error) {
             return res.status(common_1.HttpStatus.BAD_REQUEST).json({ message: error.message });
@@ -65,9 +67,10 @@ __decorate([
 __decorate([
     (0, common_1.Get)('signin'),
     (0, common_1.Render)('signin'),
+    __param(0, (0, common_1.Query)('id')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
 ], AuthController.prototype, "showSigninForm", null);
 __decorate([
     (0, common_1.UseGuards)(local_auth_guard_1.LocalAuthGuard),

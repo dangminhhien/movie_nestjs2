@@ -19,6 +19,10 @@ __decorate([
     __metadata("design:type", String)
 ], Log.prototype, "username", void 0);
 __decorate([
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", String)
+], Log.prototype, "userId", void 0);
+__decorate([
     (0, mongoose_1.Prop)({ required: false }),
     __metadata("design:type", String)
 ], Log.prototype, "movieName", void 0);

@@ -9,8 +9,8 @@ export declare class HistoryController {
     constructor(scheduleService: ScheduleService, localService: LocalService, logService: LogService);
     showHistory(selectedDate: string, selectedTime: string, movieId: string, localId: string, req: Request): Promise<{
         message: string;
-        userId?: undefined;
         username?: undefined;
+        userId?: undefined;
         selectedDate?: undefined;
         selectedTime?: undefined;
         movieName?: undefined;
@@ -18,8 +18,8 @@ export declare class HistoryController {
         movieId?: undefined;
         localId?: undefined;
     } | {
-        userId: any;
         username: any;
+        userId: any;
         selectedDate: string;
         selectedTime: string;
         movieName: any;
