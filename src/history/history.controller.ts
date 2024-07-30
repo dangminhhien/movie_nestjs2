@@ -2,7 +2,7 @@ import { Controller, Post, Body, Render, Query, Req } from '@nestjs/common';
 import { ScheduleService } from 'src/schedule/schedule.service';
 import { Request } from 'express';
 import { LocalService } from '../local/local.service';
-import { LogService } from '../log/log.service'; //
+import { LogService } from '../log/log.service';
 
 @Controller('history')
 export class HistoryController {
@@ -18,6 +18,7 @@ export class HistoryController {
   async showHistory(
     @Body('selectedDate') selectedDate: string,
     @Body('selectedTime') selectedTime: string,
+    // @Body('userId') userId: string,
     @Query('movieId') movieId: string,
     // @Query('movieName') movieName: string,
     @Query('localId') localId: string,
@@ -25,9 +26,17 @@ export class HistoryController {
     @Req() req: Request
 
   ) {
+    
+    const userId = (req as any).session?.userId;
     const username = (req as any).session?.username;
     const movieName = (req as any).session?.name || 'Unknown Movie';
     const localName = (req as any).session?.localName || 'Unknown Local';
+    
+    console.log('UserId:', userId); // Log the userId
+    console.log('MovieId:', movieId); // Log the movieId
+    console.log('LocalId:', localId); // Log the localId
+
+    
     if(!username){
       return {message: 'Please login'};
     }else{
@@ -38,7 +47,7 @@ export class HistoryController {
       }
       await this.logService.createScheduleLog(username, selectedDate, selectedTime, movieName, localName);
       
-      return {username, selectedDate, selectedTime, movieName, localName};
+      return {userId, username, selectedDate, selectedTime, movieName, localName, movieId, localId};
     }
   }
 }

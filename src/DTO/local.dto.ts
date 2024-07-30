@@ -21,9 +21,11 @@ export class MovieDto {
 }
 export class UserDto {
 
+  // readonly id : string;
   readonly username: string;
 
   constructor(user: any) {
     this.username = user.username;
+    // this.id = user.userId;s
   }
 }

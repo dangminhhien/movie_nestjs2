@@ -18,6 +18,7 @@ async function bootstrap() {
       secret: 'your-secret-key', // Use a strong secret key
       resave: false,
       saveUninitialized: false,
+      cookie: { secure: false },
     }),
   );
   app.useStaticAssets(join(__dirname, '..', 'public'));

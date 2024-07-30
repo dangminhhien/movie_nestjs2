@@ -39,14 +39,26 @@ export class AuthController {
       return res.status(HttpStatus.BAD_REQUEST).json({ message: error.message });
     }
   }
-  @Get('logout')
+  @Post('logout')
   async logout(@Request() req, @Res() res: Response) {
+    // Log session data before destruction
+    console.log('Session before logout:', req.session);
+
+    // Destroy the session
     req.session.destroy((err) => {
       if (err) {
-        return res.redirect('/'); // Handle logout error
+        console.error('Error destroying session:', err);
+        return res.redirect('/'); // Handle logout error by redirecting
       }
+      
+      // Clear the JWT cookie
       res.clearCookie('jwt');
-      res.redirect('/auth/signin'); // Redirect to signin page or another route
+      
+      // Log session data after destruction
+      console.log('Session after logout:', req.session);
+
+      // Redirect to signin page
+      res.redirect('/auth/signin');
     });
   }
 }
