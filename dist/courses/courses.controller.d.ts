@@ -5,5 +5,6 @@ export declare class CoursesController {
     showCoursesForm(req: Request): Promise<{
         courses: import("../schema/courses.schema").Course[];
         username: any;
+        role: any;
     }>;
 }

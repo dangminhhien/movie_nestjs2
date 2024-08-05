@@ -22,6 +22,8 @@ const log_module_1 = require("./log/log.module");
 const table_controller_1 = require("./table/table.controller");
 const admin_module_1 = require("./admin/admin.module");
 let AppModule = class AppModule {
+    configure(consumer) {
+    }
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([

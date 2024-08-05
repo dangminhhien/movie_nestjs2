@@ -22,9 +22,12 @@ let CoursesController = class CoursesController {
     async showCoursesForm(req) {
         const courses = await this.courseService.findAll();
         const username = req.session?.username;
+        const role = req.session?.role;
+        console.log('role: ' + role);
         return {
             courses,
-            username: username
+            username: username,
+            role
         };
     }
 };

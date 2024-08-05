@@ -9,33 +9,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.MovieSchema = exports.Movie = void 0;
-const mongoose_1 = require("@nestjs/mongoose");
-let Movie = class Movie {
-};
-exports.Movie = Movie;
+exports.CreateUserDto = void 0;
+const class_validator_1 = require("class-validator");
+const role_enum_1 = require("../auth/role.enum");
+class CreateUserDto {
+}
+exports.CreateUserDto = CreateUserDto;
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
+    (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], Movie.prototype, "name", void 0);
+], CreateUserDto.prototype, "username", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
+    (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], Movie.prototype, "content", void 0);
+], CreateUserDto.prototype, "password", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
+    (0, class_validator_1.IsEnum)(role_enum_1.Role),
     __metadata("design:type", String)
-], Movie.prototype, "category", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ required: true }),
-    __metadata("design:type", String)
-], Movie.prototype, "image", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ required: true }),
-    __metadata("design:type", String)
-], Movie.prototype, "trailer", void 0);
-exports.Movie = Movie = __decorate([
-    (0, mongoose_1.Schema)({ collection: 'courses' })
-], Movie);
-exports.MovieSchema = mongoose_1.SchemaFactory.createForClass(Movie);
-//# sourceMappingURL=movie.schema.js.map
+], CreateUserDto.prototype, "role", void 0);
+//# sourceMappingURL=create-user.dto.js.map

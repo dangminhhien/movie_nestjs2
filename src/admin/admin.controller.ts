@@ -6,37 +6,51 @@ import {
   Render, 
   Res, 
   HttpStatus, 
-  Req 
+  Req,
+  Request,
+  UseGuards, // Import the Guards decorator
 } from '@nestjs/common';
 import { Response } from 'express';
 import { AdminService } from './admin.service';
 import { CreateCourseDto } from '../DTO/create-movie.dto'; // Adjust the import as needed
+import { RolesGuard } from '../auth/roles.guard'; // Import your custom roles guard
+import { Roles } from '../auth/roles.decorator'; // Import your custom roles decorator
 
 @Controller('admin')
+@UseGuards(RolesGuard)
+@Roles('admin') // Apply the roles guard with 'admin' role
 export class AdminController {
   constructor(
     private readonly adminService: AdminService
   ) {}
 
   @Get('add-movie')
-  @Render('admin') // Assuming you have a view named 'admin.hbs'
-  showAddMovieForm() {
-    return {}; // You can pass additional data to the view if needed
+  @Render('admin')
+  showAddMovieForm(@Req() req: Request) {
+    const username = (req as any).session?.username;
+    const role = (req as any).session?.role;
+    if (!role || role !== 'admin') {
+      return { message: 'Access denied' };
+    }
+    // const courses = await this.adminService.findAllMovies();
+
+    return {username, role}; // You can pass additional data to the view if needed
   }
 
   @Post('add-movie')
   async addMovie(
-    @Body() createMovieDto: CreateCourseDto, // Ensure this DTO matches your expected input
-    @Res() res: Response
+    @Body() createMovieDto: CreateCourseDto,
+    @Res() res: Response,
+    @Req() req: Request,
   ) {
+    const role = (req as any).session?.role;
+    if (!role || role !== 'admin') {
+      return res.status(HttpStatus.FORBIDDEN).json({ message: 'Access denied' });
+    }
+
     try {
-      // Extract values from DTO
       const { name, imageUrl, category, content, trailer } = createMovieDto;
-
-      // Handle the image URL if it's provided
-      const image = imageUrl || ''; // Set a default value if imageUrl is not provided
-
-      // Call the service to create a new movie
+      const image = imageUrl || '';
       const createdCourse = await this.adminService.createAdminMovie(
         name,
         image,

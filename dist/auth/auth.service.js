@@ -39,9 +39,9 @@ let AuthService = class AuthService {
         };
     }
     async signup(createUserDto) {
-        const { username, password } = createUserDto;
+        const { username, password, role } = createUserDto;
         const hashedPassword = await bcrypt.hash(password, 10);
-        const createdUser = new this.userModel({ username, password: hashedPassword });
+        const createdUser = new this.userModel({ username, password: hashedPassword, role });
         return createdUser.save();
     }
     async findById(id) {

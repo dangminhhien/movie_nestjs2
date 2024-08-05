@@ -5,6 +5,8 @@ import { Model } from 'mongoose';
 import * as bcrypt from 'bcrypt';
 import { User, UserDocument } from '../schema/user.schema';
 import { JwtPayload } from './jwt-payload.interface';
+import { Role } from './role.enum';
+import { CreateUserDto } from '../DTO/create-user.dto';
 
 @Injectable()
 export class AuthService {
@@ -22,6 +24,7 @@ export class AuthService {
     return null;
   }
 
+
   async login(user: any) {
     const payload: JwtPayload = { username: user.username, sub: user._id };
     return {
@@ -29,10 +32,10 @@ export class AuthService {
     };
   }
 
-  async signup(createUserDto: any): Promise<User> {
-    const { username, password } = createUserDto;
+  async signup(createUserDto: CreateUserDto): Promise<User> {
+    const { username, password, role } = createUserDto;
     const hashedPassword = await bcrypt.hash(password, 10);
-    const createdUser = new this.userModel({ username, password: hashedPassword });
+    const createdUser = new this.userModel({ username, password: hashedPassword, role });
     return createdUser.save();
   }
 

@@ -10,9 +10,12 @@ export class CoursesController {
     async showCoursesForm(@Req() req: Request) {
         const courses = await this.courseService.findAll();
         const username = (req as any).session?.username;
+        const role = (req as any).session?.role;
+        console.log('role: ' + role);
         return { 
             courses, 
-            username: username  // Nếu không có username thì hiển thị 'Guest'
+            username: username,  // Nếu không có username thì hiển thị 'Guest'
+            role
         };
     }
 }

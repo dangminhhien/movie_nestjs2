@@ -1,22 +1,25 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Course, CourseDocument } from '../schema/courses.schema'; // Import your schema
+import { Course, CourseDocument } from '../schema/courses.schema';
 
 @Injectable()
 export class AdminService {
-  constructor(@InjectModel(Course.name) private readonly courseModel: Model<CourseDocument>) {}
+  constructor(
+    @InjectModel(Course.name) private readonly courseModel: Model<CourseDocument>,
+
+  ) {}
 
   async createAdminMovie(
     name: string,
-    image: string, // This will be the filename or URL for the image
+    image: string, 
     category: string,
     content: string,
-    trailer: string // This will be the URL for the trailer
+    trailer: string 
   ): Promise<CourseDocument> {
     const newCourse = new this.courseModel({
       name,
-      image,    // Image can be either a URL or filename, depending on your use case
+      image,
       category,
       content,
       trailer,
@@ -24,4 +27,8 @@ export class AdminService {
     });
     return newCourse.save();
   }
+
+  // async findAllMovies() {
+  //   return this.courseModel.find().exec();
+  // }
 }

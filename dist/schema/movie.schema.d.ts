@@ -3,6 +3,7 @@ export type MovieDocument = Movie & Document;
 export declare class Movie {
     name: string;
     content: string;
+    category: string;
     image: string;
     trailer: string;
 }

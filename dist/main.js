@@ -8,6 +8,9 @@ const session = require("express-session");
 const bodyParser = require("body-parser");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
+    hbs.registerHelper('equals', function (a, b) {
+        return a === b;
+    });
     app.use(bodyParser.urlencoded({ extended: true }));
     app.setBaseViewsDir((0, path_1.join)(__dirname, '..', 'views'));
     app.setViewEngine('hbs');

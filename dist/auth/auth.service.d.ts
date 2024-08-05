@@ -1,6 +1,7 @@
 import { JwtService } from '@nestjs/jwt';
 import { Model } from 'mongoose';
 import { User, UserDocument } from '../schema/user.schema';
+import { CreateUserDto } from '../DTO/create-user.dto';
 export declare class AuthService {
     private userModel;
     private jwtService;
@@ -9,6 +10,6 @@ export declare class AuthService {
     login(user: any): Promise<{
         access_token: string;
     }>;
-    signup(createUserDto: any): Promise<User>;
+    signup(createUserDto: CreateUserDto): Promise<User>;
     findById(id: string): Promise<User | null>;
 }
