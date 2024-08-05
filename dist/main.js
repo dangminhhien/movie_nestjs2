@@ -6,6 +6,7 @@ const path_1 = require("path");
 const hbs = require("hbs");
 const session = require("express-session");
 const bodyParser = require("body-parser");
+const methodOverride = require("method-override");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
     hbs.registerHelper('equals', function (a, b) {
@@ -14,6 +15,7 @@ async function bootstrap() {
     app.use(bodyParser.urlencoded({ extended: true }));
     app.setBaseViewsDir((0, path_1.join)(__dirname, '..', 'views'));
     app.setViewEngine('hbs');
+    app.use(methodOverride('_method'));
     app.use(session({
         secret: 'your-secret-key',
         resave: false,

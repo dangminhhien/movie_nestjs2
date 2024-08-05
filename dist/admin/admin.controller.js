@@ -18,17 +18,20 @@ const admin_service_1 = require("./admin.service");
 const create_movie_dto_1 = require("../DTO/create-movie.dto");
 const roles_guard_1 = require("../auth/roles.guard");
 const roles_decorator_1 = require("../auth/roles.decorator");
+const courses_service_1 = require("../courses/courses.service");
 let AdminController = class AdminController {
-    constructor(adminService) {
+    constructor(adminService, courseService) {
         this.adminService = adminService;
+        this.courseService = courseService;
     }
-    showAddMovieForm(req) {
+    async showAddMovieForm(req) {
         const username = req.session?.username;
         const role = req.session?.role;
         if (!role || role !== 'admin') {
             return { message: 'Access denied' };
         }
-        return { username, role };
+        const courses = await this.courseService.findAll();
+        return { username, role, courses };
     }
     async addMovie(createMovieDto, res, req) {
         const role = req.session?.role;
@@ -39,14 +42,28 @@ let AdminController = class AdminController {
             const { name, imageUrl, category, content, trailer } = createMovieDto;
             const image = imageUrl || '';
             const createdCourse = await this.adminService.createAdminMovie(name, image, category, content, trailer);
-            return res.status(common_1.HttpStatus.CREATED).json({
-                message: 'Movie added successfully!',
-                createdCourse
-            });
+            return res.status(common_1.HttpStatus.CREATED).redirect('/admin/add-movie');
         }
         catch (error) {
             return res.status(common_1.HttpStatus.BAD_REQUEST).json({
                 message: error.message
+            });
+        }
+    }
+    async deleteCourse(id, res, req) {
+        const role = req.session?.role;
+        if (!role || role !== 'admin') {
+            return res.status(common_1.HttpStatus.FORBIDDEN).json({
+                message: 'Access denied',
+            });
+        }
+        try {
+            await this.adminService.deleteCourse(id);
+            return res.status(common_1.HttpStatus.OK).redirect('/admin/add-movie');
+        }
+        catch (error) {
+            return res.status(common_1.HttpStatus.BAD_REQUEST).json({
+                message: error.message,
             });
         }
     }
@@ -58,7 +75,7 @@ __decorate([
     __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], AdminController.prototype, "showAddMovieForm", null);
 __decorate([
     (0, common_1.Post)('add-movie'),
@@ -69,10 +86,20 @@ __decorate([
     __metadata("design:paramtypes", [create_movie_dto_1.CreateCourseDto, Object, Object]),
     __metadata("design:returntype", Promise)
 ], AdminController.prototype, "addMovie", null);
+__decorate([
+    (0, common_1.Delete)('delete-course/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Res)()),
+    __param(2, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object, Object]),
+    __metadata("design:returntype", Promise)
+], AdminController.prototype, "deleteCourse", null);
 exports.AdminController = AdminController = __decorate([
     (0, common_1.Controller)('admin'),
     (0, common_1.UseGuards)(roles_guard_1.RolesGuard),
     (0, roles_decorator_1.Roles)('admin'),
-    __metadata("design:paramtypes", [admin_service_1.AdminService])
+    __metadata("design:paramtypes", [admin_service_1.AdminService,
+        courses_service_1.CoursesService])
 ], AdminController);
 //# sourceMappingURL=admin.controller.js.map

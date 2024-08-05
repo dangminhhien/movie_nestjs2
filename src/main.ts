@@ -6,6 +6,7 @@ import * as hbs from 'hbs';
 import * as session from 'express-session';
 import * as bodyParser from 'body-parser';
 import * as Handlebars from 'handlebars';
+import * as methodOverride from 'method-override';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -19,9 +20,10 @@ async function bootstrap() {
   app.setBaseViewsDir(join(__dirname, '..', 'views'));
   app.setViewEngine('hbs');
 
+  app.use(methodOverride('_method'));
   app.use(
     session({
-      secret: 'your-secret-key', // Use a strong secret key
+      secret: 'your-secret-key',
       resave: false,
       saveUninitialized: false,
       cookie: { secure: false },

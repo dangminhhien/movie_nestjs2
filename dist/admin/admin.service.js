@@ -31,6 +31,18 @@ let AdminService = class AdminService {
         });
         return newCourse.save();
     }
+    async findAllCourses() {
+        return this.courseModel.find().exec();
+    }
+    async findCourseById(id) {
+        return this.courseModel.findById(id).exec();
+    }
+    async updateCourse(id, name, image, category, content, trailer) {
+        return this.courseModel.findByIdAndUpdate(id, { name, image, category, content, trailer }, { new: true }).exec();
+    }
+    async deleteCourse(id) {
+        await this.courseModel.findByIdAndDelete(id).exec();
+    }
 };
 exports.AdminService = AdminService;
 exports.AdminService = AdminService = __decorate([
