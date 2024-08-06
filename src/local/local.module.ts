@@ -6,6 +6,7 @@ import { LocalService } from './local.service';
 import { Local, LocalSchema } from '../schema/local.schema';
 import { MovieModule } from 'src/movie/movie.module';
 import { ScheduleModule } from 'src/schedule/schedule.module';
+import { AdminModule } from 'src/admin/admin.module';
 
 @Module({
   imports: [MongooseModule.forFeature([{ name: Local.name, schema: LocalSchema }]),

@@ -17,9 +17,11 @@ const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 const courses_schema_1 = require("../schema/courses.schema");
+const local_schema_1 = require("../schema/local.schema");
 let AdminService = class AdminService {
-    constructor(courseModel) {
+    constructor(courseModel, localModel) {
         this.courseModel = courseModel;
+        this.localModel = localModel;
     }
     async createAdminMovie(name, image, category, content, trailer) {
         const newCourse = new this.courseModel({
@@ -30,6 +32,15 @@ let AdminService = class AdminService {
             trailer,
         });
         return newCourse.save();
+    }
+    async createAdminLocal(localName, image, local, map) {
+        const newLocal = new this.localModel({
+            localName,
+            image,
+            local,
+            map,
+        });
+        return newLocal.save();
     }
     async findAllCourses() {
         return this.courseModel.find().exec();
@@ -48,6 +59,8 @@ exports.AdminService = AdminService;
 exports.AdminService = AdminService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_1.InjectModel)(courses_schema_1.Course.name)),
-    __metadata("design:paramtypes", [mongoose_2.Model])
+    __param(1, (0, mongoose_1.InjectModel)(local_schema_1.Local.name)),
+    __metadata("design:paramtypes", [mongoose_2.Model,
+        mongoose_2.Model])
 ], AdminService);
 //# sourceMappingURL=admin.service.js.map

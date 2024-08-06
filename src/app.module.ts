@@ -17,6 +17,7 @@ import { LogService } from './log/log.service';
 import { ScheduleController } from './schedule/schedule.controller';
 import { ScheduleService } from './schedule/schedule.service';
 import { Course, CourseSchema } from './schema/courses.schema';
+import { LocalController } from './local/local.controller';
 
 
 @Module({

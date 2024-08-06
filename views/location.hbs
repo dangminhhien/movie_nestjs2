@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Manage Courses</title>
+  <title>Manage Locations</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/popper.min.js"></script>
@@ -14,58 +14,52 @@
   {{> header}} <!-- Include a header partial if you have one -->
 
   <div class="container">
-    <h1 class="mt-4">Add New Course</h1>
+    <h1 class="mt-4">Add New Location</h1>
     {{#if message}}
       <div class="alert alert-danger">{{message}}</div>
     {{/if}}
-    <form action="/admin/add-movie" method="POST">
+    <form action="/admin/add-location" method="POST">
       <div class="form-group">
-        <label for="name">Course Name:</label>
-        <input type="text" class="form-control" id="name" name="name" required>
+        <label for="localName">Location Name:</label>
+        <input type="text" class="form-control" id="localName" name="localName" required>
       </div>
       <div class="form-group">
-        <label for="category">Category:</label>
-        <input type="text" class="form-control" id="category" name="category" required>
+        <label for="local">Local:</label>
+        <input type="text" class="form-control" id="local" name="local" required>
       </div>
       <div class="form-group">
-        <label for="imageUrl">Course Poster URL:</label>
-        <input type="text" class="form-control" id="imageUrl" name="imageUrl" placeholder="Enter image URL" required>
+        <label for="image">Location Image URL:</label>
+        <input type="text" class="form-control" id="image" name="image" placeholder="Enter image URL" required>
       </div>
       <div class="form-group">
-        <label for="content">Content:</label>
-        <textarea class="form-control" id="content" name="content" rows="4" required></textarea>
-      </div>
-      <div class="form-group">
-        <label for="trailer">Trailer URL:</label>
-        <input type="text" class="form-control" id="trailer" name="trailer">
+        <label for="map">Map URL:</label>
+        <input type="text" class="form-control" id="map" name="map">
       </div>
       
-      <button type="submit" class="btn btn-primary">Add Course</button>
+      <button type="submit" class="btn btn-primary">Add Location</button>
     </form>
 
-    <h2 class="mt-4">Course List</h2>
+    <h2 class="mt-4">Location List</h2>
     <table class="table table-striped">
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Category</th>
+          <th>Location Name</th>
+          <th>Local</th>
           <th>Image</th>
-          <th>Content</th>
-          <th>Trailer</th>
+          <th>Map</th>
           <th>Actions</th>
         </tr>
       </thead>
       <tbody>
-        {{#each courses}}
+        {{#each local}}
           <tr>
-            <td>{{this.name}}</td>
-            <td>{{this.category}}</td>
-            <td><img src="{{this.image}}" alt="{{this.name}}" style="width: 100px;"></td>
-            <td>{{this.content}}</td>
-            <td><a href="{{this.trailer}}" target="_blank">Watch Trailer</a></td>
+            <td>{{this.localName}}</td>
+            <td>{{this.local}}</td>
+            <td><img src="{{this.image}}" alt="{{this.localName}}" style="width: 100px;"></td>
+            <td><a href="{{this.map}}" target="_blank">View Map</a></td>
             <td>
               <!-- Edit button -->
-              <a href="/admin/edit-course/{{this._id}}" class="btn btn-warning btn-sm">Edit</a>
+              <a href="/admin/edit-location/{{this._id}}" class="btn btn-warning btn-sm">Edit</a>
               <!-- Delete button -->
               <button class="btn btn-danger btn-sm" onclick="deleteTask('{{this._id}}')">Delete</button>
             </td>
@@ -77,14 +71,14 @@
 
   <script>
     function deleteTask(id) {
-        fetch(`/admin/delete-course/${id}`, {
+        fetch(`/admin/delete-location/${id}`, {
             method: 'DELETE'
         })
         .then(response => {
             if (response.ok) {
                 window.location.reload();
             } else {
-                console.error('Error deleting course');
+                console.error('Error deleting location');
             }
         })
         .catch(error => console.error(error));

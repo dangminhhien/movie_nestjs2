@@ -39,14 +39,10 @@ async bookTicket(@Param('id') id: string, @Req() req: Request) {
     try {
       const locals = await this.localService.findAll();
       const selectedLocal = locals[0];
-      // const local = await this.localService.findOneById(id);
       const username = (req as any).session?.username ;
       const movieName = (req as any).session?.name || 'Unknown Movie';
       (req as any).session.localName = selectedLocal.localName;
 
-      // console.log('Rendering local form for movie ID:', movieId);
-      // console.log('Rendering local form for user:', username);
-      // console.log('Rendering local form for movie:', movieName);
       return { local: locals, username, movieId, movieName };
     } catch (error) {
       throw new NotFoundException(error.message);
