@@ -9,13 +9,13 @@ const bodyParser = require("body-parser");
 const methodOverride = require("method-override");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
+    app.use(methodOverride('_method'));
     hbs.registerHelper('equals', function (a, b) {
         return a === b;
     });
     app.use(bodyParser.urlencoded({ extended: true }));
     app.setBaseViewsDir((0, path_1.join)(__dirname, '..', 'views'));
     app.setViewEngine('hbs');
-    app.use(methodOverride('_method'));
     app.use(session({
         secret: 'your-secret-key',
         resave: false,

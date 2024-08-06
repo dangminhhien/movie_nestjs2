@@ -10,7 +10,7 @@ import * as methodOverride from 'method-override';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
-  // Register the 'equals' helper
+  app.use(methodOverride('_method'));
   hbs.registerHelper('equals', function (a, b) {
     return a === b;
   });
@@ -20,7 +20,6 @@ async function bootstrap() {
   app.setBaseViewsDir(join(__dirname, '..', 'views'));
   app.setViewEngine('hbs');
 
-  app.use(methodOverride('_method'));
   app.use(
     session({
       secret: 'your-secret-key',

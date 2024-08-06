@@ -10,7 +10,7 @@ import {
   Request,
   UseGuards,
   Delete,
-  Param, // Import the Guards decorator
+  Param,
 } from '@nestjs/common';
 import { Response } from 'express';
 import { AdminService } from './admin.service';
@@ -82,7 +82,6 @@ export class AdminController {
         message: 'Access denied',
       });
     }
-
     try {
       await this.adminService.deleteCourse(id);
       return res.status(HttpStatus.OK).redirect('/admin/add-movie');
