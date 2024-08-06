@@ -103,7 +103,7 @@ let AdminController = class AdminController {
             return { message: 'Access denied' };
         }
         const locals = await this.localService.findAll();
-        return { username, role, locals };
+        return { username, role, local: locals };
     }
     async addLocal(createLocalDto, res, req) {
         const role = req.session?.role;
@@ -115,12 +115,57 @@ let AdminController = class AdminController {
         try {
             const { localName, local, imageLocal, map } = createLocalDto;
             const image = imageLocal || '';
-            const createdLocal = await this.adminService.createAdminLocal(localName, image, local, map);
+            const createdLocal = await this.adminService.createAdminLocal(localName, local, image, map);
             return res.status(common_1.HttpStatus.CREATED).redirect('/admin/add-location');
         }
         catch (error) {
             return res.status(common_1.HttpStatus.BAD_REQUEST).json({
                 message: error.message
+            });
+        }
+    }
+    async showEditLocalForm(id, req) {
+        const username = req.session?.username;
+        const role = req.session?.role;
+        if (!role || role !== 'admin') {
+            return { message: 'Access denied' };
+        }
+        const local = await this.adminService.findLocalById(id);
+        return { username, role, local };
+    }
+    async editLocation(id, updateLocalDto, res, req) {
+        const role = req.session?.role;
+        if (!role || role !== 'admin') {
+            return res.status(common_1.HttpStatus.FORBIDDEN).json({
+                message: 'Access denied',
+            });
+        }
+        try {
+            const { localName, local, imageLocal, map } = updateLocalDto;
+            const image = imageLocal || '';
+            const updatedLocal = await this.adminService.updateLocal(id, localName, local, image, map);
+            return res.status(common_1.HttpStatus.OK).redirect('/admin/add-location');
+        }
+        catch (error) {
+            return res.status(common_1.HttpStatus.BAD_REQUEST).json({
+                message: error.message,
+            });
+        }
+    }
+    async deleteLocal(id, res, req) {
+        const role = req.session?.role;
+        if (!role || role !== 'admin') {
+            return res.status(common_1.HttpStatus.FORBIDDEN).json({
+                message: 'Access denied',
+            });
+        }
+        try {
+            await this.adminService.deleteLocal(id);
+            return res.status(common_1.HttpStatus.OK).redirect('/admin/add-location');
+        }
+        catch (error) {
+            return res.status(common_1.HttpStatus.BAD_REQUEST).json({
+                message: error.message,
             });
         }
     }
@@ -188,6 +233,34 @@ __decorate([
     __metadata("design:paramtypes", [create_local_dto_1.CreateLocalDto, Object, Object]),
     __metadata("design:returntype", Promise)
 ], AdminController.prototype, "addLocal", null);
+__decorate([
+    (0, common_1.Get)('edit-location/:id'),
+    (0, common_1.Render)('edit-location'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", Promise)
+], AdminController.prototype, "showEditLocalForm", null);
+__decorate([
+    (0, common_1.Post)('edit-location/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)()),
+    __param(2, (0, common_1.Res)()),
+    __param(3, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, create_local_dto_1.CreateLocalDto, Object, Object]),
+    __metadata("design:returntype", Promise)
+], AdminController.prototype, "editLocation", null);
+__decorate([
+    (0, common_1.Delete)('delete-location/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Res)()),
+    __param(2, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object, Object]),
+    __metadata("design:returntype", Promise)
+], AdminController.prototype, "deleteLocal", null);
 exports.AdminController = AdminController = __decorate([
     (0, common_1.Controller)('admin'),
     (0, common_1.UseGuards)(roles_guard_1.RolesGuard),

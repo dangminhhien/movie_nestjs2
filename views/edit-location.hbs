@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Location</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+
+  {{> header}} <!-- Include a header partial if you have one -->
+
+  <div class="container">
+    <h1 class="mt-4">Edit Location</h1>
+    {{#if message}}
+      <div class="alert alert-danger">{{message}}</div>
+    {{/if}}
+    <form action="/admin/edit-location/{{local._id}}" method="POST">
+      <div class="form-group">
+        <label for="localName">Location Name:</label>
+        <input type="text" class="form-control" id="localName" name="localName" value="{{local.localName}}" required>
+      </div>
+      <div class="form-group">
+        <label for="local">Local:</label>
+        <input type="text" class="form-control" id="local" name="local" value="{{local.local}}" required>
+      </div>
+      <div class="form-group">
+        <label for="imageLocal">Location Image URL:</label>
+        <input type="text" class="form-control" id="imageLocal" name="imageLocal" value="{{local.image}}" placeholder="Enter image URL" required>
+      </div>
+      <div class="form-group">
+        <label for="map">Map URL:</label>
+        <input type="text" class="form-control" id="map" name="map" value="{{local.map}}">
+      </div>
+      
+      <button type="submit" class="btn btn-primary">Update Location</button>
+    </form>
+  </div>
+
+  <script src="/path/to/jquery.js"></script> <!-- Update with your actual path -->
+  <script src="/path/to/bootstrap.js"></script> <!-- Update with your actual path -->
+</body>
+</html>

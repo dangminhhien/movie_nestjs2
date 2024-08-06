@@ -33,11 +33,11 @@ let AdminService = class AdminService {
         });
         return newCourse.save();
     }
-    async createAdminLocal(localName, image, local, map) {
+    async createAdminLocal(localName, local, image, map) {
         const newLocal = new this.localModel({
             localName,
-            image,
             local,
+            image,
             map,
         });
         return newLocal.save();
@@ -48,11 +48,20 @@ let AdminService = class AdminService {
     async findCourseById(id) {
         return this.courseModel.findById(id).exec();
     }
+    async findLocalById(id) {
+        return this.localModel.findById(id).exec();
+    }
     async updateCourse(id, name, image, category, content, trailer) {
         return this.courseModel.findByIdAndUpdate(id, { name, image, category, content, trailer }, { new: true }).exec();
     }
     async deleteCourse(id) {
         await this.courseModel.findByIdAndDelete(id).exec();
+    }
+    async updateLocal(id, localName, local, image, map) {
+        return this.localModel.findByIdAndUpdate(id, { localName, local, image, map }, { new: true }).exec();
+    }
+    async deleteLocal(id) {
+        await this.localModel.findByIdAndDelete(id).exec();
     }
 };
 exports.AdminService = AdminService;

@@ -31,14 +31,14 @@ export class AdminService {
 
   async createAdminLocal(
     localName: string,
-    image: string,
     local: string,
+    image: string,
     map: string,
   ): Promise<LocalDocument> {
     const newLocal = new this.localModel({
       localName,
-      image,
       local,
+      image,
       map,
     });
     return newLocal.save();
@@ -50,6 +50,10 @@ export class AdminService {
 
   async findCourseById(id: string): Promise<CourseDocument> {
     return this.courseModel.findById(id).exec();
+  }
+
+  async findLocalById(id: string): Promise<LocalDocument> {
+    return this.localModel.findById(id).exec();
   }
 
   async updateCourse(
@@ -69,5 +73,23 @@ export class AdminService {
 
   async deleteCourse(id: string): Promise<void> {
     await this.courseModel.findByIdAndDelete(id).exec();
+  }
+
+  async updateLocal(
+    id: string,
+    localName: string,
+    local: string,
+    image: string,
+    map: string,
+  ): Promise<LocalDocument> {
+    return this.localModel.findByIdAndUpdate(
+      id,
+      { localName, local, image, map },
+      { new: true }
+    ).exec();
+  }
+
+  async deleteLocal(id: string): Promise<void> {
+    await this.localModel.findByIdAndDelete(id).exec();
   }
 }

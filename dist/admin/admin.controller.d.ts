@@ -38,12 +38,25 @@ export declare class AdminController {
         message: string;
         username?: undefined;
         role?: undefined;
-        locals?: undefined;
+        local?: undefined;
     } | {
         username: any;
         role: any;
-        locals: import("../schema/local.schema").Local[];
+        local: import("../schema/local.schema").Local[];
         message?: undefined;
     }>;
     addLocal(createLocalDto: CreateLocalDto, res: Response, req: Request): Promise<void | Response<any, Record<string, any>>>;
+    showEditLocalForm(id: string, req: Request): Promise<{
+        message: string;
+        username?: undefined;
+        role?: undefined;
+        local?: undefined;
+    } | {
+        username: any;
+        role: any;
+        local: import("../schema/local.schema").LocalDocument;
+        message?: undefined;
+    }>;
+    editLocation(id: string, updateLocalDto: CreateLocalDto, res: Response, req: Request): Promise<void | Response<any, Record<string, any>>>;
+    deleteLocal(id: string, res: Response, req: Request): Promise<void | Response<any, Record<string, any>>>;
 }

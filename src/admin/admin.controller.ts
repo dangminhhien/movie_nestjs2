@@ -20,6 +20,7 @@ import { Roles } from '../auth/roles.decorator';
 import { CoursesService } from '../courses/courses.service';
 import { LocalService } from '../local/local.service'; 
 import { CreateLocalDto } from '../DTO/create-local.dto';
+import { MESSAGES } from '@nestjs/core/constants';
 
 @Controller('admin')
 @UseGuards(RolesGuard)
@@ -149,8 +150,9 @@ export class AdminController {
       return { message: 'Access denied' };
     }
     const locals = await this.localService.findAll();
+    // console.log (locals);
 
-    return { username, role, locals };
+    return { username, role, local: locals };
   }
 
   @Post('add-location')
@@ -171,14 +173,79 @@ export class AdminController {
       const image = imageLocal || '';
       const createdLocal = await this.adminService.createAdminLocal(
         localName,
-        image,
         local,
+        image,
         map,
       );
       return res.status(HttpStatus.CREATED).redirect('/admin/add-location');
     } catch (error) {
       return res.status(HttpStatus.BAD_REQUEST).json({ 
         message: error.message 
+      });
+    }
+  }
+
+  @Get('edit-location/:id')
+  @Render('edit-location')
+  async showEditLocalForm(@Param('id') id: string, @Req() req: Request) {
+    const username = (req as any).session?.username;
+    const role = (req as any).session?.role;
+    if (!role || role !== 'admin') {
+      return { message: 'Access denied' };
+    }
+    const local = await this.adminService.findLocalById(id);
+    return { username, role, local };
+  }
+
+  @Post('edit-location/:id')
+  async editLocation(
+    @Param('id') id: string,
+    @Body() updateLocalDto: CreateLocalDto,
+    @Res() res: Response,
+    @Req() req: Request,
+  ) {
+    const role = (req as any).session?.role;
+    if (!role || role!== 'admin') {
+      return res.status(HttpStatus.FORBIDDEN).json({
+        message: 'Access denied',
+      });
+    }
+    try {
+      const { localName, local, imageLocal, map} = updateLocalDto;
+      const image = imageLocal || '';
+      const updatedLocal = await this.adminService.updateLocal(
+        id,
+        localName,
+        local,
+        image,
+        map,
+      );
+      return res.status(HttpStatus.OK).redirect('/admin/add-location');
+    } catch (error) {
+      return res.status(HttpStatus.BAD_REQUEST).json({
+        message: error.message,
+      });
+    }
+  }
+
+  @Delete('delete-location/:id')
+  async deleteLocal(
+    @Param('id') id: string,
+    @Res() res: Response,
+    @Req() req: Request,
+  ) {
+    const role = (req as any).session?.role;
+    if (!role || role!== 'admin') {
+      return res.status(HttpStatus.FORBIDDEN).json({
+        message: 'Access denied',
+      });
+    }
+    try {
+      await this.adminService.deleteLocal(id);
+      return res.status(HttpStatus.OK).redirect('/admin/add-location');
+    } catch (error) {
+      return res.status(HttpStatus.BAD_REQUEST).json({
+        message: error.message,
       });
     }
   }
