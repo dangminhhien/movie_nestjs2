@@ -9,7 +9,6 @@ import {
   Req,
   Request,
   UseGuards,
-  Delete,
   Param,
 } from '@nestjs/common';
 import { Response } from 'express';
@@ -119,9 +118,10 @@ export class AdminController {
     }
   }
 
-  @Delete('delete-course/:id')
+  @Post('delete-course/:id')
   async deleteCourse(
     @Param('id') id: string,
+    @Body('_method') method: string,
     @Res() res: Response,
     @Req() req: Request,
   ) {
@@ -131,14 +131,21 @@ export class AdminController {
         message: 'Access denied',
       });
     }
-    try {
-      await this.adminService.deleteCourse(id);
-      return res.status(HttpStatus.OK).redirect('/admin/add-movie');
-    } catch (error) {
-      return res.status(HttpStatus.BAD_REQUEST).json({
-        message: error.message,
-      });
+
+    if (method === 'DELETE') {
+      try {
+        await this.adminService.deleteCourse(id);
+        return res.redirect('/admin/add-movie');
+      } catch (error) {
+        return res.status(HttpStatus.BAD_REQUEST).json({
+          message: error.message,
+        });
+      }
     }
+
+    return res.status(HttpStatus.BAD_REQUEST).json({
+      message: 'Invalid method',
+    });
   }
 
   @Get('add-location')
@@ -228,9 +235,10 @@ export class AdminController {
     }
   }
 
-  @Delete('delete-location/:id')
-  async deleteLocal(
+  @Post('delete-location/:id')
+  async deleteLocation(
     @Param('id') id: string,
+    @Body('_method') method: string,
     @Res() res: Response,
     @Req() req: Request,
   ) {
@@ -240,13 +248,21 @@ export class AdminController {
         message: 'Access denied',
       });
     }
-    try {
-      await this.adminService.deleteLocal(id);
-      return res.status(HttpStatus.OK).redirect('/admin/add-location');
-    } catch (error) {
-      return res.status(HttpStatus.BAD_REQUEST).json({
-        message: error.message,
-      });
+    if (method === 'DELETE') {
+      try {
+        await this.adminService.deleteLocal(id);
+        return res.redirect('/admin/add-location');
+      } catch (error) {
+        return res.status(HttpStatus.BAD_REQUEST).json({
+          message: error.message,
+        });
+      }
     }
+
+    return res.status(HttpStatus.BAD_REQUEST).json({
+      message: 'Invalid method',
+    });
   }
+
+
 }

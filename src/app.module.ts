@@ -18,6 +18,9 @@ import { ScheduleController } from './schedule/schedule.controller';
 import { ScheduleService } from './schedule/schedule.service';
 import { Course, CourseSchema } from './schema/courses.schema';
 import { LocalController } from './local/local.controller';
+import { CoursesService } from './courses/courses.service';
+import { LocalService } from './local/local.service';
+import { AdminController } from './admin/admin.controller';
 
 
 @Module({
@@ -34,7 +37,7 @@ import { LocalController } from './local/local.controller';
 
   ],
   controllers: [AppController, CoursesController, HistoryController, TableController],
-  providers: [AppService],
+  providers: [AppService ],
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer){

@@ -79,22 +79,27 @@ let AdminController = class AdminController {
             });
         }
     }
-    async deleteCourse(id, res, req) {
+    async deleteCourse(id, method, res, req) {
         const role = req.session?.role;
         if (!role || role !== 'admin') {
             return res.status(common_1.HttpStatus.FORBIDDEN).json({
                 message: 'Access denied',
             });
         }
-        try {
-            await this.adminService.deleteCourse(id);
-            return res.status(common_1.HttpStatus.OK).redirect('/admin/add-movie');
+        if (method === 'DELETE') {
+            try {
+                await this.adminService.deleteCourse(id);
+                return res.redirect('/admin/add-movie');
+            }
+            catch (error) {
+                return res.status(common_1.HttpStatus.BAD_REQUEST).json({
+                    message: error.message,
+                });
+            }
         }
-        catch (error) {
-            return res.status(common_1.HttpStatus.BAD_REQUEST).json({
-                message: error.message,
-            });
-        }
+        return res.status(common_1.HttpStatus.BAD_REQUEST).json({
+            message: 'Invalid method',
+        });
     }
     async showAddLocalForm(req) {
         const username = req.session?.username;
@@ -152,22 +157,27 @@ let AdminController = class AdminController {
             });
         }
     }
-    async deleteLocal(id, res, req) {
+    async deleteLocation(id, method, res, req) {
         const role = req.session?.role;
         if (!role || role !== 'admin') {
             return res.status(common_1.HttpStatus.FORBIDDEN).json({
                 message: 'Access denied',
             });
         }
-        try {
-            await this.adminService.deleteLocal(id);
-            return res.status(common_1.HttpStatus.OK).redirect('/admin/add-location');
+        if (method === 'DELETE') {
+            try {
+                await this.adminService.deleteLocal(id);
+                return res.redirect('/admin/add-location');
+            }
+            catch (error) {
+                return res.status(common_1.HttpStatus.BAD_REQUEST).json({
+                    message: error.message,
+                });
+            }
         }
-        catch (error) {
-            return res.status(common_1.HttpStatus.BAD_REQUEST).json({
-                message: error.message,
-            });
-        }
+        return res.status(common_1.HttpStatus.BAD_REQUEST).json({
+            message: 'Invalid method',
+        });
     }
 };
 exports.AdminController = AdminController;
@@ -208,12 +218,13 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AdminController.prototype, "editCourse", null);
 __decorate([
-    (0, common_1.Delete)('delete-course/:id'),
+    (0, common_1.Post)('delete-course/:id'),
     __param(0, (0, common_1.Param)('id')),
-    __param(1, (0, common_1.Res)()),
-    __param(2, (0, common_1.Req)()),
+    __param(1, (0, common_1.Body)('_method')),
+    __param(2, (0, common_1.Res)()),
+    __param(3, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, Object, Object]),
+    __metadata("design:paramtypes", [String, String, Object, Object]),
     __metadata("design:returntype", Promise)
 ], AdminController.prototype, "deleteCourse", null);
 __decorate([
@@ -253,14 +264,15 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AdminController.prototype, "editLocation", null);
 __decorate([
-    (0, common_1.Delete)('delete-location/:id'),
+    (0, common_1.Post)('delete-location/:id'),
     __param(0, (0, common_1.Param)('id')),
-    __param(1, (0, common_1.Res)()),
-    __param(2, (0, common_1.Req)()),
+    __param(1, (0, common_1.Body)('_method')),
+    __param(2, (0, common_1.Res)()),
+    __param(3, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, Object, Object]),
+    __metadata("design:paramtypes", [String, String, Object, Object]),
     __metadata("design:returntype", Promise)
-], AdminController.prototype, "deleteLocal", null);
+], AdminController.prototype, "deleteLocation", null);
 exports.AdminController = AdminController = __decorate([
     (0, common_1.Controller)('admin'),
     (0, common_1.UseGuards)(roles_guard_1.RolesGuard),

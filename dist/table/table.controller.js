@@ -19,13 +19,20 @@ let TableController = class TableController {
     constructor(logService) {
         this.logService = logService;
     }
-    async showLogs(req) {
+    async showLogs(req, res) {
         const username = req.session?.username;
         const userId = req.session?.userId;
+        const role = req.session?.role;
         if (!userId) {
-            return { message: 'Please log in to view your logs.' };
+            return res.status(401).send({ message: 'Please log in to view your logs.' });
         }
-        const logs = await this.logService.findAllByUserId(userId);
+        let logs;
+        if (role === 'admin') {
+            logs = await this.logService.findAll();
+        }
+        else {
+            logs = await this.logService.findAllByUserId(userId);
+        }
         return { logs, username };
     }
 };
@@ -34,8 +41,9 @@ __decorate([
     (0, common_1.Get)(),
     (0, common_1.Render)('table'),
     __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], TableController.prototype, "showLogs", null);
 exports.TableController = TableController = __decorate([

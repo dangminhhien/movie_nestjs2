@@ -1,6 +1,6 @@
-import { Controller, Get, Render, Req } from '@nestjs/common';
+import { Controller, Get, Render, Req, Res } from '@nestjs/common';
 import { LogService } from '../log/log.service';
-import { Request } from 'express';
+import { Request, Response  } from 'express';
 
 
 @Controller('table')
@@ -9,13 +9,26 @@ export class TableController {
 
   @Get()
   @Render('table')
-  async showLogs(@Req() req: Request) {
+  async showLogs(@Req() req: Request, @Res() res: Response) {
     const username = (req as any).session?.username;
-    const userId = (req as any).session?.userId; // Assuming `userId` is stored in session after login
-    if (!userId) {
-      return { message: 'Please log in to view your logs.' };
+    const userId = (req as any).session?.userId;
+    const role = (req as any).session?.role;
+      // return { message: 'Please log in to view your logs.' };
+
+      if (!userId) {
+        return res.status(401).send({ message: 'Please log in to view your logs.' });
+      }
+  
+      let logs;
+      if (role === 'admin') {
+        logs = await this.logService.findAll(); // Assuming you have a method to fetch all logs
+      } else {
+        logs = await this.logService.findAllByUserId(userId);
+      }
+  
+      return { logs, username };
     }
-    const logs = await this.logService.findAllByUserId(userId);
-    return { logs, username };
+    // const logs = await this.logService.findAllByUserId(userId);
+    // return { logs, username };
+    
   }
-}

@@ -58,10 +58,11 @@
             <td><img src="{{this.image}}" alt="{{this.localName}}" style="width: 100px;"></td>
             <td><a href="{{this.map}}" target="_blank">View Map</a></td>
             <td>
-              <!-- Edit button -->
               <a href="/admin/edit-location/{{this._id}}" class="btn btn-warning btn-sm">Edit</a>
-              <!-- Delete button -->
-              <button class="btn btn-danger btn-sm" onclick="deleteTask('{{this._id}}')">Delete</button>
+              <form action="/admin/delete-location/{{this._id}}" method="POST" style="display:inline;">
+                <input type="hidden" name="_method" value="DELETE">
+                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+              </form>
             </td>
           </tr>
         {{/each}}
@@ -69,20 +70,5 @@
     </table>
   </div>
 
-  <script>
-    function deleteTask(id) {
-        fetch(`/admin/delete-location/${id}`, {
-            method: 'DELETE'
-        })
-        .then(response => {
-            if (response.ok) {
-                window.location.reload();
-            } else {
-                console.error('Error deleting location');
-            }
-        })
-        .catch(error => console.error(error));
-    }
-  </script>
 </body>
 </html>

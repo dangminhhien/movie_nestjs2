@@ -33,7 +33,7 @@ export declare class AdminController {
         message?: undefined;
     }>;
     editCourse(id: string, updateCourseDto: CreateCourseDto, res: Response, req: Request): Promise<void | Response<any, Record<string, any>>>;
-    deleteCourse(id: string, res: Response, req: Request): Promise<void | Response<any, Record<string, any>>>;
+    deleteCourse(id: string, method: string, res: Response, req: Request): Promise<void | Response<any, Record<string, any>>>;
     showAddLocalForm(req: Request): Promise<{
         message: string;
         username?: undefined;
@@ -58,5 +58,5 @@ export declare class AdminController {
         message?: undefined;
     }>;
     editLocation(id: string, updateLocalDto: CreateLocalDto, res: Response, req: Request): Promise<void | Response<any, Record<string, any>>>;
-    deleteLocal(id: string, res: Response, req: Request): Promise<void | Response<any, Record<string, any>>>;
+    deleteLocation(id: string, method: string, res: Response, req: Request): Promise<void | Response<any, Record<string, any>>>;
 }

@@ -1,15 +1,10 @@
 import { LogService } from '../log/log.service';
-import { Request } from 'express';
+import { Request, Response } from 'express';
 export declare class TableController {
     private readonly logService;
     constructor(logService: LogService);
-    showLogs(req: Request): Promise<{
-        message: string;
-        logs?: undefined;
-        username?: undefined;
-    } | {
-        logs: import("../schema/log.schema").Log[];
+    showLogs(req: Request, res: Response): Promise<Response<any, Record<string, any>> | {
+        logs: any;
         username: any;
-        message?: undefined;
     }>;
 }

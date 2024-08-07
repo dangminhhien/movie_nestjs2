@@ -64,31 +64,17 @@
             <td>{{this.content}}</td>
             <td><a href="{{this.trailer}}" target="_blank">Watch Trailer</a></td>
             <td>
-              <!-- Edit button -->
               <a href="/admin/edit-course/{{this._id}}" class="btn btn-warning btn-sm">Edit</a>
-              <!-- Delete button -->
-              <button class="btn btn-danger btn-sm" onclick="deleteTask('{{this._id}}')">Delete</button>
+              <form action="/admin/delete-course/{{this._id}}" method="POST" style="display:inline;">
+                <input type="hidden" name="_method" value="DELETE">
+                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+              </form>
+
             </td>
           </tr>
         {{/each}}
       </tbody>
     </table>
   </div>
-
-  <script>
-    function deleteTask(id) {
-        fetch(`/admin/delete-course/${id}`, {
-            method: 'DELETE'
-        })
-        .then(response => {
-            if (response.ok) {
-                window.location.reload();
-            } else {
-                console.error('Error deleting course');
-            }
-        })
-        .catch(error => console.error(error));
-    }
-  </script>
 </body>
 </html>
