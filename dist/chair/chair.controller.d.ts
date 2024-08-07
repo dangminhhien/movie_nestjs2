@@ -1,8 +1,18 @@
-import { ChairService } from './chair.service';
+import { Request } from 'express';
 export declare class ChairController {
-    private readonly chairService;
-    constructor(chairService: ChairService);
-    showChair(req: Request): Promise<{
+    showChairForm(req: Request): Promise<{
         username: any;
+        chairs: {
+            id: string;
+            status: string;
+        }[][];
     }>;
+    getChairs(): {
+        id: string;
+        status: string;
+    }[][];
+    bookChairs(chairIds: string): {
+        message: string;
+        bookedChairs: string[];
+    };
 }

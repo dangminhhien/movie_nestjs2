@@ -5,9 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Seat Selection</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
   <style>
     .seat {
       width: 40px;
@@ -38,10 +35,7 @@
     }
     .seat.available { background-color: purple; }
     .seat.selected { background-color: pink; }
-    .seat.vip { background-color: red; }
     .seat.booked { background-color: gray; cursor: not-allowed; }
-    .seat.double { background-color: hotpink; }
-    .seat.central { border: 2px solid lime; }
     .legend {
       margin-top: 20px;
       text-align: center;
@@ -61,136 +55,23 @@
 </head>
 <body>
 
-    {{> header}}
+  {{> header}}
 
   <div class="container">
     <div class="screen">MÀN HÌNH</div>
-    
-    <div class="seat-row">
-      <div class="seat available">A11</div>
-      <div class="seat available">A10</div>
-      <div class="seat available">A9</div>
-      <div class="seat available">A8</div>
-      <div class="seat available">A7</div>
-      <div class="seat available">A6</div>
-      <div class="seat available">A5</div>
-      <div class="seat available">A4</div>
-      <div class="seat available">A3</div>
-      <div class="seat available">A2</div>
-      <div class="seat available">A1</div>
-    </div>
-    
-    <div class="seat-row">
-      <div class="seat available">B11</div>
-      <div class="seat available">B10</div>
-      <div class="seat available">B9</div>
-      <div class="seat available">B8</div>
-      <div class="seat available">B7</div>
-      <div class="seat available">B6</div>
-      <div class="seat available">B5</div>
-      <div class="seat available">B4</div>
-      <div class="seat available">B3</div>
-      <div class="seat available">B2</div>
-      <div class="seat available">B1</div>
-    </div>
 
-    <div class="seat-row">
-      <div class="seat available">C11</div>
-      <div class="seat available">C10</div>
-      <div class="seat available">C9</div>
-      <div class="seat available">C8</div>
-      <div class="seat available">C7</div>
-      <div class="seat available">C6</div>
-      <div class="seat available">C5</div>
-      <div class="seat available">C4</div>
-      <div class="seat available">C3</div>
-      <div class="seat available">C2</div>
-      <div class="seat available">C1</div>
-    </div>
+    <form method="POST" action="/chair/book">
+      {{#each chairs}}
+        <div class="seat-row">
+          {{#each this}}
+            <div class="seat {{status}}" data-id="{{id}}">{{id}}</div>
+          {{/each}}
+        </div>
+      {{/each}}
 
-    <div class="seat-row">
-      <div class="seat available">D11</div>
-      <div class="seat available">D10</div>
-      <div class="seat available">D9</div>
-      <div class="seat available">D8</div>
-      <div class="seat available">D7</div>
-      <div class="seat available">D6</div>
-      <div class="seat available">D5</div>
-      <div class="seat available">D4</div>
-      <div class="seat available">D3</div>
-      <div class="seat available">D2</div>
-      <div class="seat available">D1</div>
-    </div>
-
-    <div class="seat-row">
-      <div class="seat available">E11</div>
-      <div class="seat available">E10</div>
-      <div class="seat available">E9</div>
-      <div class="seat available">E8</div>
-      <div class="seat available">E7</div>
-      <div class="seat available">E6</div>
-      <div class="seat available">E5</div>
-      <div class="seat available">E4</div>
-      <div class="seat available">E3</div>
-      <div class="seat available">E2</div>
-      <div class="seat available">E1</div>
-    </div>
-
-    <div class="seat-row">
-      <div class="seat available">F11</div>
-      <div class="seat available">F10</div>
-      <div class="seat available">F9</div>
-      <div class="seat available">A8</div>
-      <div class="seat available">F7</div>
-      <div class="seat available">F6</div>
-      <div class="seat available">F5</div>
-      <div class="seat available">F4</div>
-      <div class="seat available">F3</div>
-      <div class="seat available">F2</div>
-      <div class="seat available">F1</div>
-    </div>
-
-    <div class="seat-row">
-      <div class="seat available">G11</div>
-      <div class="seat available">G10</div>
-      <div class="seat available">G9</div>
-      <div class="seat available">G8</div>
-      <div class="seat available">G7</div>
-      <div class="seat available">G6</div>
-      <div class="seat available">G5</div>
-      <div class="seat available">G4</div>
-      <div class="seat available">G3</div>
-      <div class="seat available">G2</div>
-      <div class="seat available">G1</div>
-    </div>
-
-    <div class="seat-row">
-      <div class="seat available">H11</div>
-      <div class="seat available">H10</div>
-      <div class="seat available">H9</div>
-      <div class="seat available">H8</div>
-      <div class="seat available">H7</div>
-      <div class="seat available">H6</div>
-      <div class="seat available">H5</div>
-      <div class="seat available">H4</div>
-      <div class="seat available">H3</div>
-      <div class="seat available">H2</div>
-      <div class="seat available">H1</div>
-    </div>
-
-    <div class="seat-row">
-      <div class="seat available">I11</div>
-      <div class="seat available">I10</div>
-      <div class="seat available">I9</div>
-      <div class="seat available">I8</div>
-      <div class="seat available">I7</div>
-      <div class="seat available">I6</div>
-      <div class="seat available">I5</div>
-      <div class="seat available">I4</div>
-      <div class="seat available">I3</div>
-      <div class="seat available">I2</div>
-      <div class="seat available">I1</div>
-    </div>
+      <input type="hidden" name="chairs" id="selected-chairs">
+      <button type="submit" class="btn btn-primary mt-4">Đặt ghế</button>
+    </form>
 
     <div class="legend">
       <div class="legend-item">
@@ -206,21 +87,22 @@
   </div>
 
   <script>
-    const selectedSeats = new Set();
-
     document.querySelectorAll('.seat.available').forEach(seat => {
       seat.addEventListener('click', () => {
-        const seatId = seat.innerText;
-        if (selectedSeats.has(seatId)) {
-          selectedSeats.delete(seatId);
+        if (seat.classList.contains('selected')) {
           seat.classList.remove('selected');
         } else {
-          selectedSeats.add(seatId);
           seat.classList.add('selected');
         }
-        console.log(Array.from(selectedSeats));
+        updateSelectedChairs();
       });
     });
+
+    function updateSelectedChairs() {
+      const selectedChairs = Array.from(document.querySelectorAll('.seat.selected'))
+                                 .map(seat => seat.getAttribute('data-id'));
+      document.getElementById('selected-chairs').value = selectedChairs.join(',');
+    }
   </script>
 </body>
 </html>

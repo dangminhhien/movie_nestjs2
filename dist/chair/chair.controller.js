@@ -14,14 +14,27 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ChairController = void 0;
 const common_1 = require("@nestjs/common");
-const chair_service_1 = require("./chair.service");
 let ChairController = class ChairController {
-    constructor(chairService) {
-        this.chairService = chairService;
-    }
-    async showChair(req) {
+    async showChairForm(req) {
         const username = req.session?.username;
-        return { username };
+        const chairs = this.getChairs();
+        return { username, chairs };
+    }
+    getChairs() {
+        const chairs = [
+            [
+                { id: 'A1', status: 'available' }, { id: 'A2', status: 'available' }, { id: 'A3', status: 'available' }, { id: 'A4', status: 'available' }, { id: 'A5', status: 'available' }, { id: 'A6', status: 'available' }, { id: 'A7', status: 'available' }, { id: 'A8', status: 'available' }, { id: 'A9', status: 'available' }, { id: 'A10', status: 'available' }, { id: 'A11', status: 'available' }
+            ],
+            [
+                { id: 'B1', status: 'available' }, { id: 'B2', status: 'available' }, { id: 'B3', status: 'available' }, { id: 'B4', status: 'available' }, { id: 'B5', status: 'available' }, { id: 'B6', status: 'available' }, { id: 'B7', status: 'available' }, { id: 'B8', status: 'available' }, { id: 'B9', status: 'available' }, { id: 'B10', status: 'available' }, { id: 'B11', status: 'available' }
+            ],
+        ];
+        return chairs;
+    }
+    bookChairs(chairIds) {
+        const bookedChairs = chairIds.split(',');
+        console.log('Chairs booked:', bookedChairs);
+        return { message: 'Chairs booked successfully', bookedChairs };
     }
 };
 exports.ChairController = ChairController;
@@ -30,11 +43,17 @@ __decorate([
     (0, common_1.Render)('chair'),
     __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Request]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
-], ChairController.prototype, "showChair", null);
+], ChairController.prototype, "showChairForm", null);
+__decorate([
+    (0, common_1.Post)('book'),
+    __param(0, (0, common_1.Body)('chairs')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], ChairController.prototype, "bookChairs", null);
 exports.ChairController = ChairController = __decorate([
-    (0, common_1.Controller)('chair'),
-    __metadata("design:paramtypes", [chair_service_1.ChairService])
+    (0, common_1.Controller)('chair')
 ], ChairController);
 //# sourceMappingURL=chair.controller.js.map
