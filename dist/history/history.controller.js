@@ -28,9 +28,6 @@ let HistoryController = class HistoryController {
         const username = req.session?.username;
         const movieName = req.session?.name || 'Unknown Movie';
         const localName = req.session?.localName || 'Unknown Local';
-        console.log('UserId:', userId);
-        console.log('MovieId:', movieId);
-        console.log('LocalId:', localId);
         if (!username) {
             return { message: 'Please login' };
         }

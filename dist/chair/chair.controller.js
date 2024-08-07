@@ -12,35 +12,29 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CoursesController = void 0;
+exports.ChairController = void 0;
 const common_1 = require("@nestjs/common");
-const courses_service_1 = require("./courses.service");
-let CoursesController = class CoursesController {
-    constructor(courseService) {
-        this.courseService = courseService;
+const chair_service_1 = require("./chair.service");
+let ChairController = class ChairController {
+    constructor(chairService) {
+        this.chairService = chairService;
     }
-    async showCoursesForm(req) {
-        const courses = await this.courseService.findAll();
+    async showChair(req) {
         const username = req.session?.username;
-        const role = req.session?.role;
-        return {
-            courses,
-            username: username,
-            role
-        };
+        return { username };
     }
 };
-exports.CoursesController = CoursesController;
+exports.ChairController = ChairController;
 __decorate([
     (0, common_1.Get)(),
-    (0, common_1.Render)('client'),
+    (0, common_1.Render)('chair'),
     __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Request]),
     __metadata("design:returntype", Promise)
-], CoursesController.prototype, "showCoursesForm", null);
-exports.CoursesController = CoursesController = __decorate([
-    (0, common_1.Controller)(),
-    __metadata("design:paramtypes", [courses_service_1.CoursesService])
-], CoursesController);
-//# sourceMappingURL=courses.controller.js.map
+], ChairController.prototype, "showChair", null);
+exports.ChairController = ChairController = __decorate([
+    (0, common_1.Controller)('chair'),
+    __metadata("design:paramtypes", [chair_service_1.ChairService])
+], ChairController);
+//# sourceMappingURL=chair.controller.js.map

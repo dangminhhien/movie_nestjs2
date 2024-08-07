@@ -31,7 +31,7 @@ export class AuthController {
     req.session.userId = req.user._id;
     req.session.role = req.user.role;
     // console.log('userId: ', req.user._id);
-    console.log('role: ', req.user);
+    // console.log('role: ', req.user);
     res.cookie('jwt', token.access_token, { httpOnly: true });
     res.redirect('/');
   }

@@ -32,9 +32,9 @@ export class HistoryController {
     const movieName = (req as any).session?.name || 'Unknown Movie';
     const localName = (req as any).session?.localName || 'Unknown Local';
     
-    console.log('UserId:', userId); // Log the userId
-    console.log('MovieId:', movieId); // Log the movieId
-    console.log('LocalId:', localId); // Log the localId
+    // console.log('UserId:', userId); // Log the userId
+    // console.log('MovieId:', movieId); // Log the movieId
+    // console.log('LocalId:', localId); // Log the localId
 
     
     if(!username){

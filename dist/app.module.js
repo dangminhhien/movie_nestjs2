@@ -21,6 +21,7 @@ const history_controller_1 = require("./history/history.controller");
 const log_module_1 = require("./log/log.module");
 const table_controller_1 = require("./table/table.controller");
 const admin_module_1 = require("./admin/admin.module");
+const chair_module_1 = require("./chair/chair.module");
 let AppModule = class AppModule {
     configure(consumer) {
     }
@@ -37,6 +38,7 @@ exports.AppModule = AppModule = __decorate([
             schedule_module_1.ScheduleModule,
             log_module_1.LogModule,
             admin_module_1.AdminModule,
+            chair_module_1.ChairModule,
         ],
         controllers: [app_controller_1.AppController, courses_controller_1.CoursesController, history_controller_1.HistoryController, table_controller_1.TableController],
         providers: [app_service_1.AppService],

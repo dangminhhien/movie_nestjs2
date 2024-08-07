@@ -21,7 +21,6 @@ let LocalController = class LocalController {
     }
     async bookTicket(id, req) {
         try {
-            console.log('Booking ticket for movie ID:', id);
             req.session.movieId = id;
             return { url: `/schedule?localId=${id}` };
         }

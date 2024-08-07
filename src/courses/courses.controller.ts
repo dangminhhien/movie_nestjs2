@@ -11,7 +11,7 @@ export class CoursesController {
         const courses = await this.courseService.findAll();
         const username = (req as any).session?.username;
         const role = (req as any).session?.role;
-        console.log('role: ' + role);
+        // console.log('role: ' + role);
         return { 
             courses, 
             username: username,  // Nếu không có username thì hiển thị 'Guest'

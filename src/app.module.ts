@@ -21,6 +21,7 @@ import { LocalController } from './local/local.controller';
 import { CoursesService } from './courses/courses.service';
 import { LocalService } from './local/local.service';
 import { AdminController } from './admin/admin.controller';
+import { ChairModule } from './chair/chair.module';
 
 
 @Module({
@@ -33,6 +34,7 @@ import { AdminController } from './admin/admin.controller';
     ScheduleModule,
     LogModule,
     AdminModule,
+    ChairModule,
 
 
   ],
