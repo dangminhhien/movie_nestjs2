@@ -35,7 +35,7 @@
     }
     .seat.available { background-color: purple; }
     .seat.selected { background-color: pink; }
-    .seat.booked { background-color: gray; cursor: not-allowed; }
+    .seat.booked { background-color:  rgb(52, 189, 25); cursor: not-allowed; }
     .legend {
       margin-top: 20px;
       text-align: center;
@@ -58,12 +58,15 @@
   {{> header}}
 
   <div class="container">
+    <h2>Đặt ghế cho phim {{movieName}}</h2>
+
+
     <div class="screen">MÀN HÌNH</div>
 
-    <form method="POST" action="/chair/book">
+    <form method="post" action="/chair/book">
       {{#each chairs}}
         <div class="seat-row">
-          {{#each this}}
+          {{#each this}} 
             <div class="seat {{status}}" data-id="{{id}}">{{id}}</div>
           {{/each}}
         </div>
@@ -71,11 +74,12 @@
 
       <input type="hidden" name="chairs" id="selected-chairs">
       <button type="submit" class="btn btn-primary mt-4">Đặt ghế</button>
+      <a href="/chair/reset" class="btn btn-secondary mt-4">Reset</a>
     </form>
 
     <div class="legend">
       <div class="legend-item">
-        <div class="legend-color" style="background-color: gray;"></div> Đã đặt
+        <div class="legend-color" style="background-color: rgb(52, 189, 25);"></div> Đã đặt
       </div>
       <div class="legend-item">
         <div class="legend-color" style="background-color: pink;"></div> Ghế bạn chọn

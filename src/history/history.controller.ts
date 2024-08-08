@@ -16,13 +16,10 @@ export class HistoryController {
   @Post()
   @Render('history')
   async showHistory(
-    @Body('selectedDate') selectedDate: string,
-    @Body('selectedTime') selectedTime: string,
-    // @Body('userId') userId: string,
+    // @Body('selectedDate') selectedDate: string,
+    // @Body('selectedTime') selectedTime: string,
     @Query('movieId') movieId: string,
-    // @Query('movieName') movieName: string,
     @Query('localId') localId: string,
-    // @Query('localName') localName: string,
     @Req() req: Request
 
   ) {
@@ -31,11 +28,11 @@ export class HistoryController {
     const username = (req as any).session?.username;
     const movieName = (req as any).session?.name || 'Unknown Movie';
     const localName = (req as any).session?.localName || 'Unknown Local';
-    
-    // console.log('UserId:', userId); // Log the userId
-    // console.log('MovieId:', movieId); // Log the movieId
-    // console.log('LocalId:', localId); // Log the localId
+    const bookedChairs = (req as any).session?.bookedChairs || [];
+    const selectedDate = (req as any).session?.selectedDate;
+    const selectedTime = (req as any).session?.selectedTime;
 
+    
     
     if(!username){
       return {message: 'Please login'};
@@ -46,8 +43,14 @@ export class HistoryController {
         return { message: 'The selected time conflicts with an existing schedule. Please choose another time.' };
       }
       await this.logService.createScheduleLog(username, userId,selectedDate, selectedTime, movieName, localName);
-      
-      return { username, userId, selectedDate, selectedTime, movieName, localName, movieId, localId};
+
+
+      console.log('Form submitted2:', {
+        selectedDate, selectedTime, localName, username, bookedChairs, movieName
+      });
+
+
+      return { username, userId, selectedDate, selectedTime, movieName, localName, movieId, localId, bookedChairs};
     }
   }
 }

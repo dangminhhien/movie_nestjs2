@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Log, LogDocument, LOG_MODEL_NAME } from '../schema/log.schema'; // Cập nhật đường dẫn đúng
+import { Log, LogDocument, LOG_MODEL_NAME } from '../schema/log.schema';
 
 @Injectable()
 export class LogService {
@@ -12,12 +12,12 @@ export class LogService {
   async createScheduleLog(username: string, userId: string, selectedDate: string, selectedTime: string, movieName?: string, localName?: string): Promise<LogDocument> {
     const log = new this.logModel({
       username,
-      movieName,   // Có thể là undefined
-      localName,   // Có thể là undefined
+      movieName,
+      localName,
       selectedDate,
       selectedTime,
       userId,
-      timestamp: new Date(), // Thay đổi nếu cần thiết
+      timestamp: new Date(),
     });
     return log.save();
   }

@@ -23,11 +23,14 @@ let HistoryController = class HistoryController {
         this.localService = localService;
         this.logService = logService;
     }
-    async showHistory(selectedDate, selectedTime, movieId, localId, req) {
+    async showHistory(movieId, localId, req) {
         const userId = req.session?.userId;
         const username = req.session?.username;
         const movieName = req.session?.name || 'Unknown Movie';
         const localName = req.session?.localName || 'Unknown Local';
+        const bookedChairs = req.session?.bookedChairs || [];
+        const selectedDate = req.session?.selectedDate;
+        const selectedTime = req.session?.selectedTime;
         if (!username) {
             return { message: 'Please login' };
         }
@@ -38,7 +41,10 @@ let HistoryController = class HistoryController {
                 return { message: 'The selected time conflicts with an existing schedule. Please choose another time.' };
             }
             await this.logService.createScheduleLog(username, userId, selectedDate, selectedTime, movieName, localName);
-            return { username, userId, selectedDate, selectedTime, movieName, localName, movieId, localId };
+            console.log('Form submitted2:', {
+                selectedDate, selectedTime, localName, username, bookedChairs, movieName
+            });
+            return { username, userId, selectedDate, selectedTime, movieName, localName, movieId, localId, bookedChairs };
         }
     }
 };
@@ -46,13 +52,11 @@ exports.HistoryController = HistoryController;
 __decorate([
     (0, common_1.Post)(),
     (0, common_1.Render)('history'),
-    __param(0, (0, common_1.Body)('selectedDate')),
-    __param(1, (0, common_1.Body)('selectedTime')),
-    __param(2, (0, common_1.Query)('movieId')),
-    __param(3, (0, common_1.Query)('localId')),
-    __param(4, (0, common_1.Req)()),
+    __param(0, (0, common_1.Query)('movieId')),
+    __param(1, (0, common_1.Query)('localId')),
+    __param(2, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, String, String, String, Object]),
+    __metadata("design:paramtypes", [String, String, Object]),
     __metadata("design:returntype", Promise)
 ], HistoryController.prototype, "showHistory", null);
 exports.HistoryController = HistoryController = __decorate([

@@ -13,23 +13,22 @@ export class LocalController {
 
 
 
-  @Get(':id/schedule')
+@Get(':id/schedule')
 @Redirect('/schedule')
 async bookTicket(@Param('id') id: string, @Req() req: Request) {
   try {
-    // console.log('Booking ticket for movie ID:', id);  // Debugging line
     (req as any).session.movieId = id;
     return { url: `/schedule?localId=${id}` };
   } catch (error) {
-    console.error('Error:', error.message);  // Debugging line
+    console.error('Error:', error.message);
     throw new NotFoundException(error.message);
   }
 }
 
 
 
-  @Get()
-  @Render('local')
+@Get()
+@Render('local')
   async showLocalForm(
     @Param('id') id: string, 
     @Query('movieId') movieId: string,

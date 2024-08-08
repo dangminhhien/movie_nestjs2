@@ -18,9 +18,11 @@
       </div>
     {{else}}
       <div class="container">
-        <h2>Kết quả đặt lịch xem phim</h2>
+        <h2>Kết quả đặt lịch xem phim {{movieName}}</h2>
+        <p>Địa điểm xem phim: {{localName}}</p>
         <p>Ngày xem phim: {{selectedDate}}</p>
         <p>Giờ xem phim: {{selectedTime}}</p>
+        <p>Ghế: {{#each bookedChairs}}{{this}} {{/each}}</p>
       </div>
     {{/if}}
   </div>

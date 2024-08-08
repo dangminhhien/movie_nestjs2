@@ -1,18 +1,27 @@
 import { Request } from 'express';
 export declare class ChairController {
-    showChairForm(req: Request): Promise<{
+    private chairs;
+    showChairForm(req: Request, selectedDate: string, selectedTime: string): Promise<{
+        movieName: any;
+        localName: any;
         username: any;
         chairs: {
             id: string;
             status: string;
         }[][];
+        selectedTime: string;
+        selectedDate: string;
     }>;
-    getChairs(): {
-        id: string;
-        status: string;
-    }[][];
-    bookChairs(chairIds: string): {
+    bookChairs(chairIds: string, req: Request): Promise<{
         message: string;
         bookedChairs: string[];
+        selectedDate: any;
+        selectedTime: any;
+        movieName: any;
+        localName: any;
+        username: any;
+    }>;
+    resetChairs(): {
+        message: string;
     };
 }
